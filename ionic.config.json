@@ -1,0 +1,7 @@
+{
+  "name": "oppa-admin",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
