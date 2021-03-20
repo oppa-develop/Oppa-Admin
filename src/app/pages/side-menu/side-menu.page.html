@@ -1,0 +1,35 @@
+<ion-grid class="ion-no-padding ion-no-margin">
+  <ion-row>
+    <ion-col size="2.5">
+      <ion-list lines="none" class="ion-no-padding">
+        <ion-img class="logo" src="./assets/images/Logo Oppa fondo transparente-05.png"></ion-img>
+        <ion-item color="secondary" *ngFor="let page of pages" button [routerLink]="page.url" routerLinkActive="active-item">
+          <ion-icon [name]="page.icon" class="ion-margin-end"></ion-icon>
+          <ion-label>{{ page.title }}</ion-label>
+        </ion-item>
+      </ion-list>
+      <ion-list lines="none" class="ion-no-padding">
+        <ion-item color="secondary" button (click)="logout()">
+          <ion-icon name="exit" class="ion-margin-end"></ion-icon>
+          <ion-label>Salir</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+    <ion-col>
+      <ion-header>
+        <ion-toolbar>
+          <ion-item class="navbar" color="secondary">
+            <ion-avatar slot="start" class="ion-no-margin">
+              <ion-img *ngIf="user.img_url" [src]="apiUrl + user.img_url"></ion-img>
+              <ion-img *ngIf="!user.img_url" src="./assets/images/default_avatar.png"></ion-img>
+            </ion-avatar>
+            <ion-title class="ion-no-padding">
+              {{ user.firstname + ' ' + user.lastname}}
+            </ion-title>
+          </ion-item>
+        </ion-toolbar>
+      </ion-header>
+      <ion-router-outlet id="content" main></ion-router-outlet>
+    </ion-col>
+  </ion-row>
+</ion-grid>

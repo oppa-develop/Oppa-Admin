@@ -1,0 +1,53 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card color="secondary">
+          <ion-card-header>
+            <ion-list class="ion-no-padding" lines="none">
+              <ion-item class="ion-no-padding" color="secondary">
+                <ion-text color="light">
+                  <h1 class="ion-no-padding ion-no-margin">Usuarios</h1>
+                </ion-text>
+                <ion-button class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+            <table *ngIf="!loading">
+              <thead>
+                <tr>
+                  <td *ngFor="let column of table.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of table.rows">
+                  <td>
+                    <ion-avatar>
+                      <ion-img *ngIf="row['img_url']" [src]="apiUrl + row['img_url']"></ion-img>
+                      <ion-img *ngIf="!row['img_url']" src="./assets/images/default_avatar.png"></ion-img>
+                    </ion-avatar>
+                  </td>
+                  <td>{{ row['Nombre'] }}</td>
+                  <td>
+                    <ion-button color="primary">
+                      <ion-icon class="ion-no-margin" size="large" name="man" *ngIf="row['Género'].toLowerCase() == 'hombre'"></ion-icon>
+                      <ion-icon class="ion-no-margin" size="large" name="woman" *ngIf="row['Género'].toLowerCase() == 'mujer'"></ion-icon>
+                      <ion-icon class="ion-no-margin" size="large" name="male-female" *ngIf="row['Género'].toLowerCase() == 'otro'"></ion-icon>
+                    </ion-button>
+                  </td>
+                  <td>{{ row['Rut'] }}</td>
+                  <td>{{ row['Email'] }}</td>
+                  <td>{{ row['Teléfono'] }}</td>
+                  <td>{{ row['Fecha de Nacimiento'] | date:'dd/MM/yyyy' }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <ion-title color="light" class="ion-no-padding">Total: {{ table.rows.length }}</ion-title>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -1,0 +1,20 @@
+ion-grid {
+  height: 100vh;
+}
+
+ion-row, ion-col {
+  height: 100%;
+}
+
+ion-img, form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  top: 50%;
+  transform: scale(0.9) translateY(-60%);
+}
+
+ion-content ion-col:nth-child(2) {
+  background-color: #F99702;
+}
