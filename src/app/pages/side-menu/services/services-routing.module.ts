@@ -7,6 +7,10 @@ const routes: Routes = [
   {
     path: '',
     component: ServicesPage
+  },
+  {
+    path: 'new-service',
+    loadChildren: () => import('./new-service/new-service.module').then( m => m.NewServicePageModule)
   }
 ];
 

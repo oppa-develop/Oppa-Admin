@@ -1,0 +1,34 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <form [formGroup]="newCategoryForm" ngNativeValidate>
+          <ion-text color="light">
+            <h1 class="ion-no-margin ion-margin-bottom ion-padding-bottom ion-text-center"><strong>Crear Nueva Categoría</strong></h1>
+          </ion-text>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-label color="light" position="floating">Título</ion-label>
+              <ion-input color="light" formControlName="title" type="text" class="ion-text-right" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="light" position="floating">Descripción</ion-label>
+              <ion-input color="light" formControlName="description" type="text" class="ion-text-right" required></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label color="light" position="floating">Supercategoría</ion-label>
+              <ion-select color="light" formControlName="super_categories_super_category_id" required>
+                <ion-select-option *ngFor="let superCategory of superCategories" [value]="superCategory.super_category_id">{{ superCategory.title }}</ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-list>
+          <ion-footer>
+            <ion-button (click)="createCategory()" class="ion-float-end">Crear</ion-button>
+            <ion-button class="ion-float-end btn-secondary" (click)="cancel()">Cancelar</ion-button>
+          </ion-footer>
+        </form>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+

@@ -1,3 +1,11 @@
-td {
+table.categories-tb td {
   width: calc(100% / 3);
+}
+
+table.supercategories-tb td:first-child {
+  width: 24%;
+}
+
+table.supercategories-tb td:last-child {
+  width: 48%;
 }

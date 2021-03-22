@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Service } from 'src/app/models/service';
 import { ApiService } from 'src/app/providers/api/api.service';
+import { NewServicePage } from './new-service/new-service.page';
 
 @Component({
   selector: 'app-services',
@@ -23,13 +25,19 @@ export class ServicesPage implements OnInit {
   loading: boolean = true
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private modalController: ModalController
   ) { }
   
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.loading = true
     this.api.getServices().toPromise()
       .then((res: any) => {
         this.loading = false
+        this.table.rows = []
         res.services.forEach(service => {
           this.table.rows.push({
             Título: service.title,
@@ -41,6 +49,29 @@ export class ServicesPage implements OnInit {
           })
         });
       })
+  }
+
+  async presentModalNewService() {
+    const modal = await this.modalController.create({
+      component: NewServicePage,
+      cssClass: 'modal-form-large'
+    });
+
+    modal.onDidDismiss()
+      .then((newService) => {
+        console.log('en vista', newService.data);
+        
+        if (newService.data) this.table.rows.push({
+          Título: newService.data.title,
+          Descripción: newService.data.description,
+          Precio: newService.data.price,
+          Esencial: newService.data.isBasic,
+          Categoría: newService.data.category_title,
+          Supercategoría: newService.data.super_category_title
+        })
+      });
+
+    return await modal.present();
   }
 
 }

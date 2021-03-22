@@ -30,9 +30,14 @@ export class UsersPage implements OnInit {
   ) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.loading = true
     this.api.getUsers().toPromise()
       .then((res: any) => {
         this.loading = false
+        this.table.rows = []
         res.users.forEach(user => {
           this.table.rows.push({
             img_url: user.img_url,

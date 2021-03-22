@@ -26,10 +26,6 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
-      },
-      {
-        path: 'new-service',
-        loadChildren: () => import('./new-service/new-service.module').then( m => m.NewServicePageModule)
       }
     ]
   },
@@ -37,30 +33,6 @@ const routes: Routes = [
     path: '',
     redirectTo: '/sidemenu/home',
     pathMatch: 'full'
-  },
-  {
-    path: 'services',
-    loadChildren: () => import('./services/services.module').then( m => m.ServicesPageModule)
-  },
-  {
-    path: 'categories',
-    loadChildren: () => import('./categories/categories.module').then( m => m.CategoriesPageModule)
-  },
-  {
-    path: 'users',
-    loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
-  },
-  {
-    path: 'new-service',
-    loadChildren: () => import('./new-service/new-service.module').then( m => m.NewServicePageModule)
-  },
-  {
-    path: 'new-category',
-    loadChildren: () => import('./new-category/new-category.module').then( m => m.NewCategoryPageModule)
-  },
-  {
-    path: 'new-user',
-    loadChildren: () => import('./new-user/new-user.module').then( m => m.NewUserPageModule)
   }
 ];
 

@@ -24,6 +24,10 @@ export class ApiService {
     return this.http.get<Service[]>(`${this.apiUrl}/services`)
   }
 
+  getCategoriesBySupercategoryTitle(title: string): Observable<Service[]> {
+    return this.http.get<Service[]>(`${this.apiUrl}/categories/super_category_title/${title}`)
+  }
+
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}/users`)
   }
@@ -34,5 +38,9 @@ export class ApiService {
 
   getSupercategories(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/superCategories`)
+  }
+
+  createCategory(newCategory): Observable<any> {
+    return this.http.post(`${this.apiUrl}/categories/new-category`, newCategory)
   }
 }

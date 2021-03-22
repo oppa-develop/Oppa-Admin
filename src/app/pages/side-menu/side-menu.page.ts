@@ -11,10 +11,10 @@ import { environment } from 'src/environments/environment';
 export class SideMenuPage implements OnInit {
 
   pages = [
-    { title: 'Inicio', icon: 'home', url: '/sidemenu/home'},
-    { title: 'Servicios', icon: 'construct', url: '/sidemenu/services'},
-    { title: 'Categorias', icon: 'reader', url: '/sidemenu/categories'},
-    { title: 'Usuarios', icon: 'person', url: '/sidemenu/users'},
+    { title: 'Inicio',      icon: 'home',       url: '/sidemenu/home'},
+    { title: 'Categorias',  icon: 'reader',     url: '/sidemenu/categories'},
+    { title: 'Servicios',   icon: 'construct',  url: '/sidemenu/services'},
+    { title: 'Usuarios',    icon: 'person',     url: '/sidemenu/users'},
   ]
   user: User;
   apiUrl: string = environment.HOST + '/'

@@ -9,13 +9,13 @@
                 <ion-text color="light">
                   <h1 class="ion-no-padding ion-no-margin">Categorías</h1>
                 </ion-text>
-                <ion-button class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
+                <ion-button (click)="presentModalNewCategory()" class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
               </ion-item>
             </ion-list>
           </ion-card-header>
           <ion-card-content>
             <ion-progress-bar *ngIf="loadingCategories" type="indeterminate"></ion-progress-bar>
-            <table *ngIf="!loadingCategories">
+            <table class="categories-tb" *ngIf="!loadingCategories">
               <thead>
                 <tr>
                   <td *ngFor="let column of categoriesTable.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
@@ -41,13 +41,13 @@
                 <ion-text color="light">
                   <h1 class="ion-no-padding ion-no-margin">Supercategorías</h1>
                 </ion-text>
-                <ion-button class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
+                <ion-button (click)="presentModalNewSupercategory()" class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
               </ion-item>
             </ion-list>
           </ion-card-header>
           <ion-card-content>
             <ion-progress-bar *ngIf="loadingSupercategories" type="indeterminate"></ion-progress-bar>
-            <table *ngIf="!loadingSupercategories">
+            <table class="supercategories-tb" *ngIf="!loadingSupercategories">
               <thead>
                 <tr>
                   <td *ngFor="let column of superCategoriesTable.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>

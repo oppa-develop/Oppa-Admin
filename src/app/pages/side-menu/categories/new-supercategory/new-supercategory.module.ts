@@ -4,18 +4,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { CategoriesPageRoutingModule } from './categories-routing.module';
+import { NewSupercategoryPageRoutingModule } from './new-supercategory-routing.module';
 
-import { CategoriesPage } from './categories.page';
+import { NewSupercategoryPage } from './new-supercategory.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    CategoriesPageRoutingModule,
+    NewSupercategoryPageRoutingModule,
     ReactiveFormsModule
   ],
-  declarations: [CategoriesPage]
+  declarations: [NewSupercategoryPage]
 })
-export class CategoriesPageModule {}
+export class NewSupercategoryPageModule {}
