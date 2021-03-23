@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  HOST: 'https://oppa-api.herokuapp.com',
+  HOST: 'http://ec2-15-228-21-133.sa-east-1.compute.amazonaws.com:3000',
+  // HOST: 'http://localhost:3000',
 };
 
 /*

@@ -59,8 +59,6 @@ export class ServicesPage implements OnInit {
 
     modal.onDidDismiss()
       .then((newService) => {
-        console.log('en vista', newService.data);
-        
         if (newService.data) this.table.rows.push({
           Título: newService.data.title,
           Descripción: newService.data.description,
@@ -72,6 +70,11 @@ export class ServicesPage implements OnInit {
       });
 
     return await modal.present();
+  }
+
+  changeState(service_id: number, state: string) {
+    console.log(service_id, state);
+    
   }
 
 }
