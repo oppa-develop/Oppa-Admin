@@ -31,7 +31,7 @@
                   </td>
                   <td>{{ row['Nombre'] }}</td>
                   <td>
-                    <ion-button color="primary">
+                    <ion-button [ngClass]="{ 'man': row['Género'].toLowerCase() == 'hombre', 'woman': row['Género'].toLowerCase() == 'mujer', 'other': row['Género'].toLowerCase() == 'otro'}">
                       <ion-icon class="ion-no-margin" size="large" name="man" *ngIf="row['Género'].toLowerCase() == 'hombre'"></ion-icon>
                       <ion-icon class="ion-no-margin" size="large" name="woman" *ngIf="row['Género'].toLowerCase() == 'mujer'"></ion-icon>
                       <ion-icon class="ion-no-margin" size="large" name="male-female" *ngIf="row['Género'].toLowerCase() == 'otro'"></ion-icon>

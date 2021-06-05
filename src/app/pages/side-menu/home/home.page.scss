@@ -25,3 +25,12 @@
 #container a {
   text-decoration: none;
 }
+
+ion-avatar, ion-thumbnail {
+  width: 16%;
+  height: 16%;
+}
+
+ion-thumbnail {
+  margin-inline-end: 15px;
+}

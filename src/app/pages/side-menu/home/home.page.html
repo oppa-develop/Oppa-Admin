@@ -1,10 +1,90 @@
 <ion-content [fullscreen]="true">
   <ion-row>
-    <ion-col size="3" *ngFor="let i of [1,2,3,4]">
+    <ion-col size="4" *ngFor="let i of [1,2,3]">
       <ion-card>
         <ion-card-header class="ion-no-padding">
-          <img src="https:www.loremflickr.com/400/200" alt="">
+          <img src="https://www.loremflickr.com/400/200/chart" alt="">
         </ion-card-header>
+      </ion-card>
+    </ion-col>
+  </ion-row>
+  <ion-row>
+    <ion-col size="8">
+      <ion-card color="secondary">
+        <ion-card-header>
+          <h1 class="ion-no-padding ion-no-margin"><ion-text color="light">Últimos servicios solicitados</ion-text></h1>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-progress-bar *ngIf="loadingServices" type="indeterminate"></ion-progress-bar>
+          <table class="categories-tb" *ngIf="!loadingServices">
+            <thead>
+              <tr>
+                <td *ngFor="let column of lastServicesTable.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of lastServicesTable.rows">
+                <td>{{ row['Servicio'] }}</td>
+                <td>{{ row['Categoría'] }}</td>
+                <td>{{ row['Supercategoría'] }}</td>
+                <td>{{ row['Proveedor'] }}</td>
+                <td>{{ row['Cliente'] }}</td>
+                <td>{{ row['Estado'] }}</td>
+              </tr>
+            </tbody>
+          </table>
+          <ion-title color="light" class="ion-no-padding">Total: {{ lastServicesTable.rows.length }}</ion-title>
+        </ion-card-content>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4">
+      <ion-card color="secondary">
+        <ion-card-header>
+          <h1 class="ion-no-padding ion-no-margin"><ion-text color="light">Mejores Evaluados</ion-text></h1>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list class="ion-no-padding" *ngFor="let provider of [1,2,3,4,5]">
+            <ion-item button class="ion-no-padding" color="secondary">
+              <ion-avatar slot="start">
+                <ion-img src="http://www.loremflickr.com/400/400/selfie"></ion-img>
+              </ion-avatar>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-text>Juenito Pérez</ion-text>
+                  </ion-col>
+                  <ion-col size="12">
+                    <ion-text>j.perez@example.com</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+      <ion-card color="secondary">
+        <ion-card-header>
+          <h1 class="ion-no-padding ion-no-margin"><ion-text color="light">Más solicitados</ion-text></h1>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list class="ion-no-padding" *ngFor="let provider of [1,2,3,4,5]">
+            <ion-item button class="ion-no-padding" color="secondary">
+              <ion-thumbnail slot="start">
+                <ion-img src="http://www.loremflickr.com/400/400/medico"></ion-img>
+              </ion-thumbnail>
+              <ion-grid>
+                <ion-row>
+                  <ion-col size="12">
+                    <ion-text>Visita al Médico</ion-text>
+                  </ion-col>
+                  <ion-col size="12">
+                    <ion-text>Servicio a Domicilio</ion-text>
+                  </ion-col>
+                </ion-row>
+              </ion-grid>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
       </ion-card>
     </ion-col>
   </ion-row>

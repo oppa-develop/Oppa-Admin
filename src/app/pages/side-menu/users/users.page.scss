@@ -11,3 +11,15 @@ ion-avatar ion-img {
   width: 50px;
   margin-top: 15px;
 }
+
+.man {
+  --background: var(--ion-color-primary);
+}
+
+.woman {
+  --background: #e91e63;
+}
+
+.other {
+  --background: #ffa000;
+}

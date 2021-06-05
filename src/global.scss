@@ -128,3 +128,11 @@ ion-item ion-label {
 [aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
   color: var(--ion-color-primary);
 }
+
+tr, td, ion-text {
+  transition: 500ms;
+}
+
+tr:hover td, ion-list:hover ion-text {
+  color: white;
+}

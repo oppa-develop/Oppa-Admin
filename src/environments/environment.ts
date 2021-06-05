@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  HOST: 'http://ec2-15-228-21-133.sa-east-1.compute.amazonaws.com:3000',
-  // HOST: 'http://localhost:3000',
+  // HOST: 'http://177.71.163.105:3000',
+  HOST: 'http://localhost:3000',
 };
 
 /*
