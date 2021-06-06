@@ -2,11 +2,13 @@ ion-grid {
   height: 100vh;
 }
 
-ion-row, ion-col {
+ion-row,
+ion-col {
   height: 100%;
 }
 
-ion-img, form {
+ion-img,
+form {
   position: absolute;
   left: 0;
   right: 0;
@@ -23,6 +25,7 @@ ion-content ion-col:nth-child(2) {
   color: white;
 }
 
-a, a strong{
+a,
+a strong {
   color: #F99702;
 }

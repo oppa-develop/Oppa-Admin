@@ -109,7 +109,6 @@ export class HomePage {
         categories: data.categories
       },
       yAxis: {
-        className: 'column-color',
         title: undefined
       },
       legend: {
@@ -120,13 +119,6 @@ export class HomePage {
       },
       plotOptions: {
         series: {
-          /* fillColor: {
-            linearGradient: [0, 0, 300, 0],
-            stops: [
-              [0, '#38b1f9'],
-              [1, '#292d39']
-            ]
-          }, */
           name: 'Servicios solicitados',
           borderColor: 'transparent',
           borderRadius: 5,
