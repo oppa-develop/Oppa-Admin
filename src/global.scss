@@ -129,10 +129,22 @@ ion-item ion-label {
   color: var(--ion-color-primary);
 }
 
-tr, td, ion-text {
+tr,
+td,
+ion-text {
   transition: 500ms;
 }
 
-tr:hover td, ion-list:hover ion-text {
+tr:hover td,
+ion-list:hover ion-text {
   color: white;
+}
+
+table {
+  width: 100%;
+}
+
+ion-button.state {
+  zoom: 0.7;
+  width: 125px;
 }

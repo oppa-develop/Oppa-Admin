@@ -54,4 +54,18 @@ export class ApiService {
     console.log(formData);
     return this.http.post(`${this.apiUrl}/services/new-service`, formData)
   }
+
+  getMostActiveDistricts() {
+    return of({
+      success: true,
+      message: 'most active districts of the month',
+      districts: [
+        { district: 'Recoleta',     region: 'Matropolitana de Santiago', servicesCount: 100 },
+        { district: 'Conchalí',     region: 'Matropolitana de Santiago', servicesCount: 50 },
+        { district: 'Providencia',  region: 'Matropolitana de Santiago', servicesCount: 20 },
+        { district: 'Vitacura',     region: 'Matropolitana de Santiago', servicesCount: 70 },
+        { district: 'Huechuraba',   region: 'Matropolitana de Santiago', servicesCount: 20 }
+      ]
+    })
+  }
 }

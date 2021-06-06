@@ -1,15 +1,44 @@
 <ion-content [fullscreen]="true">
+
+  <!-- gráficas -->
   <ion-row>
-    <ion-col size="4" *ngFor="let i of [1,2,3]">
-      <ion-card>
+    <ion-col size="4">
+      <ion-card color="secondary" class="ion-padding">
         <ion-card-header class="ion-no-padding">
-          <img src="https://www.loremflickr.com/400/200/chart" alt="">
+          <h1 class="ion-no-margin"><ion-text color="light">title</ion-text></h1>
+          <!-- <img src="https://www.loremflickr.com/400/200/chart" alt=""> -->
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4">
+      <ion-card color="secondary" class="ion-padding">
+        <ion-card-header class="ion-no-padding">
+          <h1 class="ion-no-margin"><ion-text color="light">title</ion-text></h1>
+          <!-- <img src="https://www.loremflickr.com/400/200/chart" alt=""> -->
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+    <ion-col size="4">
+      <ion-card color="secondary" class="ion-padding">
+        <ion-card-header class="ion-no-padding">
+          <h1 class="ion-no-margin"><ion-text color="light">title</ion-text></h1>
+          <!-- <img src="https://www.loremflickr.com/400/200/chart" alt=""> -->
         </ion-card-header>
       </ion-card>
     </ion-col>
   </ion-row>
+
+  <!-- tablas -->
   <ion-row>
     <ion-col size="8">
+      <ion-card color="secondary">
+        <ion-card-header>
+          <h1 class="ion-no-padding ion-no-margin"><ion-text color="light">Comunas más activas</ion-text></h1>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-progress-bar *ngIf="loadingMostActiveDistricts" type="indeterminate"></ion-progress-bar>
+        </ion-card-content>
+      </ion-card>
       <ion-card color="secondary">
         <ion-card-header>
           <h1 class="ion-no-padding ion-no-margin"><ion-text color="light">Últimos servicios solicitados</ion-text></h1>
@@ -23,17 +52,21 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let row of lastServicesTable.rows">
+              <tr *ngFor="let row of lastServicesTable.rows.slice(0, 5)"> <!-- el slice limita la cantidad a mostrar -->
                 <td>{{ row['Servicio'] }}</td>
                 <td>{{ row['Categoría'] }}</td>
                 <td>{{ row['Supercategoría'] }}</td>
                 <td>{{ row['Proveedor'] }}</td>
                 <td>{{ row['Cliente'] }}</td>
-                <td>{{ row['Estado'] }}</td>
+                <td>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">{{ row['Estado'] }}</ion-button>
+                </td>
+                <td>{{ row['Fecha'] | date:'shortDate' }}</td>
               </tr>
             </tbody>
           </table>
-          <ion-title color="light" class="ion-no-padding">Total: {{ lastServicesTable.rows.length }}</ion-title>
         </ion-card-content>
       </ion-card>
     </ion-col>
