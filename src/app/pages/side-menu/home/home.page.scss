@@ -34,3 +34,7 @@ ion-avatar, ion-thumbnail {
 ion-thumbnail {
   margin-inline-end: 15px;
 }
+
+.column-color {
+  fill: linear-gradient(to bottom, red, blue);
+}

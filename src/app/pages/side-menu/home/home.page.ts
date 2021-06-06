@@ -1,6 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { ApiService } from 'src/app/providers/api/api.service';
 import { environment } from 'src/environments/environment';
+import { Chart } from 'angular-highcharts';
 
 @Component({
   selector: 'app-home',
@@ -48,7 +49,7 @@ export class HomePage {
 
   usersChart = {}
   providersChart = {}
-  mostActiveDistrictsChart = {}
+  mostActiveDistrictsChart: Chart
 
   constructor(
     private api: ApiService
@@ -76,7 +77,62 @@ export class HomePage {
     this.api.getMostActiveDistricts().toPromise()
       .then((res: any) => {
         this.loadingMostActiveDistricts = false
-        console.table(res.districts)
+        this.generateChart({ categories: res.districts.map(district => district.district) })
+        let data = []
+        for (let i = 0; i < res.districts.length; i++) {
+          data.push({
+            x: i,
+            y: res.districts[i].servicesCount,
+            name: `${res.districts[i].district}, región ${res.districts[i].region}`
+          })
+        }
+        console.table(data)
+        this.mostActiveDistrictsChart.addSeries({
+          data,
+          title: undefined
+        } as any, true, true);
       })
+
+  }
+
+  generateChart(data) {
+    this.mostActiveDistrictsChart = new Chart({
+      chart: {
+        type: 'column',
+        backgroundColor: 'transparent',
+        height: '40%'
+      },
+      title: {
+        text: undefined
+      },
+      xAxis: {
+        categories: data.categories
+      },
+      yAxis: {
+        className: 'column-color',
+        title: undefined
+      },
+      legend: {
+          enabled: false
+      },
+      credits: {
+        enabled: false
+      },
+      plotOptions: {
+        series: {
+          /* fillColor: {
+            linearGradient: [0, 0, 300, 0],
+            stops: [
+              [0, '#38b1f9'],
+              [1, '#292d39']
+            ]
+          }, */
+          name: 'Servicios solicitados',
+          borderColor: 'transparent',
+          borderRadius: 5,
+          color: '#38b1f9'
+        }
+      }
+    } as any);
   }
 }

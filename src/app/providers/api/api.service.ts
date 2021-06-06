@@ -60,11 +60,11 @@ export class ApiService {
       success: true,
       message: 'most active districts of the month',
       districts: [
-        { district: 'Recoleta',     region: 'Matropolitana de Santiago', servicesCount: 100 },
-        { district: 'Conchalí',     region: 'Matropolitana de Santiago', servicesCount: 50 },
-        { district: 'Providencia',  region: 'Matropolitana de Santiago', servicesCount: 20 },
-        { district: 'Vitacura',     region: 'Matropolitana de Santiago', servicesCount: 70 },
-        { district: 'Huechuraba',   region: 'Matropolitana de Santiago', servicesCount: 20 }
+        { district: 'Recoleta',     region: 'Metropolitana de Santiago', servicesCount: 100 },
+        { district: 'Conchalí',     region: 'Metropolitana de Santiago', servicesCount: 50 },
+        { district: 'Providencia',  region: 'Metropolitana de Santiago', servicesCount: 20 },
+        { district: 'Vitacura',     region: 'Metropolitana de Santiago', servicesCount: 70 },
+        { district: 'Huechuraba',   region: 'Metropolitana de Santiago', servicesCount: 20 }
       ]
     })
   }
