@@ -68,4 +68,36 @@ export class ApiService {
       ]
     })
   }
+
+  getSalesPerDay() {
+    return of({
+      success: true,
+      message: 'most active districts of the month',
+      sales: { date: new Date(), value: Math.ceil(Math.random() * 1000), totalValue: Math.ceil(Math.random() * 100000) }
+    })
+  }
+
+  getMonthlySales() {
+    return of({
+      success: true,
+      message: 'most active districts of the month',
+      sales: { date: new Date(), value: Math.ceil(Math.random() * 1000),  totalValue: Math.ceil(Math.random() * 100000) }
+    })
+  }
+
+  getNewUsers() {
+    return of({
+      success: true,
+      message: 'most active districts of the month',
+      users: { date: new Date(), value: Math.ceil(Math.random() * 10),  totalValue: Math.ceil(Math.random() * 100) }
+    })
+  }
+
+  getNewProviders() {
+    return of({
+      success: true,
+      message: 'most active districts of the month',
+      providers: { date: new Date(), value: Math.ceil(Math.random() * 10),  totalValue: Math.ceil(Math.random() * 100) }
+    })
+  }
 }

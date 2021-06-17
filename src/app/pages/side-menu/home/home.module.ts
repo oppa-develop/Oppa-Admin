@@ -5,7 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 
 import { HomePageRoutingModule } from './home-routing.module';
-import { ChartModule } from 'angular-highcharts';
+import { ChartModule, HIGHCHARTS_MODULES } from 'angular-highcharts';
+import * as more from 'highcharts/highcharts-more.src';
+import * as solidGauge from 'highcharts/modules/solid-gauge.src';
 
 
 @NgModule({
@@ -16,6 +18,9 @@ import { ChartModule } from 'angular-highcharts';
     HomePageRoutingModule,
     ChartModule
   ],
-  declarations: [HomePage]
+  declarations: [HomePage],
+  providers: [
+    { provide: HIGHCHARTS_MODULES, useFactory: () => [ more, solidGauge ] } // add as factory to your providers
+  ]
 })
 export class HomePageModule {}

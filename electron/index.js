@@ -31,8 +31,8 @@ const menuTemplateDev = [
 async function createWindow () {
   // Define our main window size
   mainWindow = new BrowserWindow({
-    height: 720,
-    width: 1200,
+    height: 820,
+    width: 1380,
     show: false,
     webPreferences: {
       nodeIntegration: true,

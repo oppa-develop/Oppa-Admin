@@ -34,3 +34,24 @@ ion-avatar, ion-thumbnail {
 ion-thumbnail {
   margin-inline-end: 15px;
 }
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.no-margin-right {
+  margin-right: 0;
+}
+
+.card-with-100 {
+  width: 100%;
+}
+
+.chart-percentage {
+  font-size: 1.5vw;
+  margin: -45% 15% 0 15%;
+}
+
+.fuchsia-value{
+  color: #e91e63 !important;
+}
