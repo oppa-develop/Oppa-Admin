@@ -46,7 +46,7 @@ export class ApiService {
   }
 
   createSupercategory(newSupercategory): Observable<any> {
-    return this.http.post(`${this.apiUrl}/superCategories/new/super-category`, newSupercategory)
+    return this.http.post(`${this.apiUrl}/superCategories/new-super-category`, newSupercategory)
   }
 
   createService(newService) {
@@ -62,7 +62,7 @@ export class ApiService {
       districts: [
         { district: 'Recoleta',     region: 'Metropolitana de Santiago', servicesCount: 100 },
         { district: 'Conchalí',     region: 'Metropolitana de Santiago', servicesCount: 50 },
-        { district: 'Providencia',  region: 'Metropolitana de Santiago', servicesCount: 20 },
+        { district: 'Providencia',  region: 'Metropolitana de Santiago', servicesCount: 0 },
         { district: 'Vitacura',     region: 'Metropolitana de Santiago', servicesCount: 70 },
         { district: 'Huechuraba',   region: 'Metropolitana de Santiago', servicesCount: 20 }
       ]
@@ -99,5 +99,9 @@ export class ApiService {
       message: 'most active districts of the month',
       providers: { date: new Date(), value: Math.ceil(Math.random() * 10),  totalValue: Math.ceil(Math.random() * 100) }
     })
+  }
+
+  getLastServicesRequested(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/services/LastRequested`)
   }
 }

@@ -8,12 +8,16 @@
               <ion-row>
                 <ion-col size="5.5">
                   <div [chart]="salesPerDay.chart"></div>
-                  <h1 class="chart-percentage"><ion-text><strong>{{salesPerDay.percentage | number: '1.0-0'}}%</strong></ion-text></h1>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{salesPerDay.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
                 </ion-col>
                 <ion-col>
                   <ion-row>
                     <ion-col size="12">
-                      <h1 class="ion-float-right"><ion-text color="primary"><strong>{{salesPerDay.value}}</strong></ion-text></h1>
+                      <h1 class="ion-float-right">
+                        <ion-text color="primary"><strong>{{salesPerDay.value}}</strong></ion-text>
+                      </h1>
                     </ion-col>
                     <ion-col size="12">
                       <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
@@ -32,12 +36,16 @@
               <ion-row>
                 <ion-col size="5.5">
                   <div [chart]="totalSales.chart"></div>
-                  <h1 class="chart-percentage"><ion-text><strong>{{totalSales.percentage | number: '1.0-0'}}%</strong></ion-text></h1>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{totalSales.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
                 </ion-col>
                 <ion-col>
                   <ion-row>
                     <ion-col size="12">
-                      <h1 class="ion-float-right"><ion-text color="success"><strong>{{totalSales.value}}</strong></ion-text></h1>
+                      <h1 class="ion-float-right">
+                        <ion-text color="success"><strong>{{totalSales.value}}</strong></ion-text>
+                      </h1>
                     </ion-col>
                     <ion-col size="12">
                       <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
@@ -56,12 +64,16 @@
               <ion-row>
                 <ion-col size="5.5">
                   <div [chart]="newUsers.chart"></div>
-                  <h1 class="chart-percentage"><ion-text><strong>{{newUsers.percentage | number: '1.0-0'}}%</strong></ion-text></h1>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{newUsers.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
                 </ion-col>
                 <ion-col>
                   <ion-row>
                     <ion-col size="12">
-                      <h1 class="ion-float-right"><ion-text class="fuchsia-value"><strong>{{newUsers.value}}</strong></ion-text></h1>
+                      <h1 class="ion-float-right">
+                        <ion-text class="fuchsia-value"><strong>{{newUsers.value}}</strong></ion-text>
+                      </h1>
                     </ion-col>
                     <ion-col size="12">
                       <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
@@ -80,12 +92,16 @@
               <ion-row>
                 <ion-col size="5.5">
                   <div [chart]="newProviders.chart"></div>
-                  <h1 class="chart-percentage"><ion-text><strong>{{newProviders.percentage | number: '1.0-0'}}%</strong></ion-text></h1>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{newProviders.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
                 </ion-col>
                 <ion-col>
                   <ion-row>
                     <ion-col size="12">
-                      <h1 class="ion-float-right"><ion-text color="warning"><strong>{{newProviders.value}}</strong></ion-text></h1>
+                      <h1 class="ion-float-right">
+                        <ion-text color="warning"><strong>{{newProviders.value}}</strong></ion-text>
+                      </h1>
                     </ion-col>
                     <ion-col size="12">
                       <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
@@ -98,7 +114,7 @@
         </ion-card>
       </ion-col>
     </ion-row>
-  
+
     <ion-row>
       <ion-col size="8">
         <ion-row>
@@ -122,26 +138,41 @@
               <table class="categories-tb" *ngIf="!loadingServices">
                 <thead>
                   <tr>
-                    <td *ngFor="let column of lastServicesTable.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
+                    <td *ngFor="let column of lastServicesTable.columns"><strong>
+                        <ion-text color="light">{{ column.name }}</ion-text>
+                      </strong></td>
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let row of lastServicesTable.rows.slice(0, 5)"> <!-- el slice limita la cantidad a mostrar -->
+                  <tr *ngFor="let row of lastServicesTable.rows.slice(page * 5, (page * 5) + 5)">
+                    <!-- el slice limita la cantidad a mostrar -->
                     <td>{{ row['Servicio'] }}</td>
                     <td>{{ row['Categoría'] }}</td>
                     <td>{{ row['Supercategoría'] }}</td>
                     <td>{{ row['Proveedor'] }}</td>
                     <td>{{ row['Cliente'] }}</td>
                     <td>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">{{ row['Estado'] }}</ion-button>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">{{ row['Estado'] }}</ion-button>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">{{ row['Estado'] }}</ion-button>
+                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">
+                        {{ row['Estado'] }}</ion-button>
+                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">
+                        {{ row['Estado'] }}</ion-button>
+                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">
+                        {{ row['Estado'] }}</ion-button>
                     </td>
                     <td>{{ row['Fecha'] | date:'shortDate' }}</td>
                   </tr>
                 </tbody>
               </table>
             </ion-card-content>
+            <ion-card-footer>
+              <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+                <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+              </ion-button>
+              <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+                <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+              </ion-button>
+              <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
+            </ion-card-footer>
           </ion-card>
         </ion-row>
       </ion-col>

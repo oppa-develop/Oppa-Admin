@@ -13,6 +13,8 @@ export class HomePage {
   apiUrl: string = environment.HOST + '/'
   loadingServices: boolean = true
   loadingMostActiveDistricts: boolean = true
+  page: number = 0
+  totalPages: number
 
   // tablas
   public lastServicesTable: any = {
@@ -127,6 +129,32 @@ export class HomePage {
         this.generateNewProvidersChart(res.providers)
       })
 
+    this.api.getLastServicesRequested().toPromise()
+      .then((res: any) => {
+        res.lastServicesRequested = res.lastServicesRequested.map(service => {
+          return {
+            Servicio: service.service,
+            Categoría: service.category,
+            Supercategoría: service.super_category,
+            Proveedor: service.provider,
+            Cliente: service.client,
+            Estado: service.state,
+            Fecha: service.date
+          }
+        })
+
+        this.lastServicesTable.rows = res.lastServicesRequested
+        this.totalPages = Math.ceil(this.lastServicesTable.rows.length/5)
+      })
+
+  }
+
+  nextPage() {
+    if (this.page < Math.ceil(this.lastServicesTable.rows.length/5)) this.page++
+  }
+
+  previousPage() {
+    if (this.page > 0) this.page--
   }
 
   generateMostActiveDistrictsChart(districts) {

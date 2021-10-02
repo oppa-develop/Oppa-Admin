@@ -34,8 +34,9 @@ export class NewSupercategoryPage implements OnInit {
   }
 
   createSupercategory() {
-    if (!this.newSupercategoryForm.valid) throw Error('Invalid Form')
-    this.api.createCategory(this.newSupercategoryForm.value).toPromise()
+    // if (!this.newSupercategoryForm.valid) throw Error('Invalid Form')
+    console.log(this.newSupercategoryForm.value)
+    this.api.createSupercategory({title: 'a domicilio', description: 'asdasdasd'}).toPromise()
       .then((res: any) => {
         this.modalController.dismiss(this.newSupercategoryForm.value)
       })
