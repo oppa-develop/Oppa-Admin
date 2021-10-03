@@ -128,56 +128,9 @@
             </ion-card-content>
           </ion-card>
         </ion-row>
-        <ion-row>
-          <ion-card color="secondary" class="card-with-100">
-            <ion-card-header>
-              <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
-            </ion-card-header>
-            <ion-card-content>
-              <ion-progress-bar *ngIf="loadingServices" type="indeterminate"></ion-progress-bar>
-              <table class="categories-tb" *ngIf="!loadingServices">
-                <thead>
-                  <tr>
-                    <td *ngFor="let column of lastServicesTable.columns"><strong>
-                        <ion-text color="light">{{ column.name }}</ion-text>
-                      </strong></td>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let row of lastServicesTable.rows.slice(page * 5, (page * 5) + 5)">
-                    <!-- el slice limita la cantidad a mostrar -->
-                    <td>{{ row['Servicio'] }}</td>
-                    <td>{{ row['Categoría'] }}</td>
-                    <td>{{ row['Supercategoría'] }}</td>
-                    <td>{{ row['Proveedor'] }}</td>
-                    <td>{{ row['Cliente'] }}</td>
-                    <td>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">
-                        {{ row['Estado'] }}</ion-button>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">
-                        {{ row['Estado'] }}</ion-button>
-                      <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">
-                        {{ row['Estado'] }}</ion-button>
-                    </td>
-                    <td>{{ row['Fecha'] | date:'shortDate' }}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </ion-card-content>
-            <ion-card-footer>
-              <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
-                <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
-              </ion-button>
-              <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
-                <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
-              </ion-button>
-              <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
-            </ion-card-footer>
-          </ion-card>
-        </ion-row>
       </ion-col>
       <ion-col size="4">
-        <ion-row>
+        <!-- <ion-row>
           <ion-card color="secondary">
             <ion-card-header>
               <ion-text color="light"><strong>{{'Mejores Evaluados' | uppercase}}</strong></ion-text>
@@ -202,34 +155,78 @@
               </ion-list>
             </ion-card-content>
           </ion-card>
-        </ion-row>
+        </ion-row> -->
         <ion-row>
           <ion-card color="secondary">
             <ion-card-header>
-              <ion-text color="light"><strong>{{'Más solicitados' | uppercase}}</strong></ion-text>
+              <ion-text color="light"><strong>{{'Servicios más solicitados' | uppercase}}</strong></ion-text>
             </ion-card-header>
             <ion-card-content>
-              <ion-list class="ion-no-padding" *ngFor="let provider of [1,2,3,4,5]">
+              <ion-list class="ion-no-padding" *ngFor="let service of mostRequestedServices">
                 <ion-item button class="ion-no-padding" color="secondary">
                   <ion-thumbnail slot="start">
-                    <ion-img src="http://www.loremflickr.com/400/400/medico"></ion-img>
+                    <ion-img [src]="apiUrl + service.img_url"></ion-img>
                   </ion-thumbnail>
                   <ion-grid>
                     <ion-row>
                       <ion-col size="12">
-                        <ion-text>Visita al Médico</ion-text>
+                        <ion-text>{{ service.title }}</ion-text>
                       </ion-col>
                       <ion-col size="12">
-                        <ion-text>Servicio a Domicilio</ion-text>
+                        <ion-text>{{ service.category }}</ion-text>
                       </ion-col>
                     </ion-row>
                   </ion-grid>
+                  <ion-badge class="fuchsia-background" slot="end">{{ service.quantity }}</ion-badge>
                 </ion-item>
               </ion-list>
             </ion-card-content>
           </ion-card>
         </ion-row>
       </ion-col>
+    </ion-row>
+    
+    <ion-row>
+      <ion-card color="secondary" class="card-with-100">
+        <ion-card-header>
+          <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-progress-bar *ngIf="loadingServices" type="indeterminate"></ion-progress-bar>
+          <table class="categories-tb" *ngIf="!loadingServices">
+            <thead>
+              <tr>
+                <td *ngFor="let column of lastServicesTable.columns"><strong>
+                    <ion-text color="light">{{ column.name }}</ion-text>
+                  </strong></td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of lastServicesTable.rows.slice(page * 5, (page * 5) + 5)">
+                <!-- el slice limita la cantidad a mostrar -->
+                <td>{{ row['Servicio'] }}</td>
+                <td>{{ row['Categoría'] }}</td>
+                <td>{{ row['Supercategoría'] }}</td>
+                <td>{{ row['Proveedor'] }}</td>
+                <td>{{ row['Cliente'] }}</td>
+                <td>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">{{ row['Estado'] }}</ion-button>
+                </td>
+                <td>{{ row['Fecha'] | date:'shortDate' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+        <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+          <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+          <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
+      </ion-card>
     </ion-row>
   </ion-grid>
 </ion-content>

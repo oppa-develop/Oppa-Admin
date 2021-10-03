@@ -22,7 +22,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let row of table.rows">
+                <tr *ngFor="let row of table.rows.slice(page * 5, (page * 5) + 5)">
                   <td>{{ row['Título'] }}</td>
                   <td>{{ row['Descripción'] }}</td>
                   <td>${{ row['Precio'] | number }}</td>
@@ -32,7 +32,14 @@
                 </tr>
               </tbody>
             </table>
-            <ion-title color="light" class="ion-no-padding">Total: {{ table.rows.length }}</ion-title>
+            <ion-title color="light" class="ion-no-padding ion-float-left">Total: {{ table.rows.length }}</ion-title>
+            <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+              <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+            <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+              <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+            <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
           </ion-card-content>
         </ion-card>
       </ion-col>

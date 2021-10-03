@@ -15,6 +15,7 @@ export class HomePage {
   loadingMostActiveDistricts: boolean = true
   page: number = 0
   totalPages: number
+  mostRequestedServices: any[] = []
 
   // tablas
   public lastServicesTable: any = {
@@ -103,11 +104,6 @@ export class HomePage {
         })
       });
     }) */
-    this.api.getMostActiveDistricts().toPromise()
-      .then((res: any) => {
-        this.loadingMostActiveDistricts = false
-        this.generateMostActiveDistrictsChart(res.districts)
-      })
 
     this.api.getSalesPerDay().toPromise()
       .then((res: any) => {
@@ -144,13 +140,24 @@ export class HomePage {
         })
 
         this.lastServicesTable.rows = res.lastServicesRequested
-        this.totalPages = Math.ceil(this.lastServicesTable.rows.length/5)
+        this.totalPages = Math.ceil(this.lastServicesTable.rows.length / 5)
+      })
+
+    this.api.getMostRequestedServices(5).toPromise()
+      .then((res: any) => {
+        this.mostRequestedServices = res.mostRequestedServices
+      })
+
+    this.api.getMostRequestedDistricts(5).toPromise()
+      .then((res: any) => {
+        this.loadingMostActiveDistricts = false
+        this.generateMostActiveDistrictsChart(res.mostRequestedDistricts)
       })
 
   }
 
   nextPage() {
-    if (this.page < Math.ceil(this.lastServicesTable.rows.length/5)) this.page++
+    if (this.page < Math.ceil(this.lastServicesTable.rows.length / 5)) this.page++
   }
 
   previousPage() {
@@ -163,7 +170,7 @@ export class HomePage {
       chart: {
         type: 'column',
         backgroundColor: 'transparent',
-        height: '40%'
+        height: '36%'
       },
       title: {
         text: undefined
@@ -193,7 +200,7 @@ export class HomePage {
     for (let i = 0; i < districts.length; i++) {
       data.push({
         x: i,
-        y: districts[i].servicesCount,
+        y: districts[i].quantity,
         name: `${districts[i].district}, región ${districts[i].region}`
       })
     }

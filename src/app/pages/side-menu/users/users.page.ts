@@ -24,6 +24,8 @@ export class UsersPage implements OnInit {
   };
   apiUrl: string = environment.HOST + '/'
   loading: boolean = true
+  page: number = 0
+  totalPages: number
 
   constructor(
     private api: ApiService
@@ -41,7 +43,7 @@ export class UsersPage implements OnInit {
         res.users.forEach(user => {
           this.table.rows.push({
             img_url: user.img_url,
-            Nombre: user.firstname +  ' ' + user.lastname,
+            Nombre: user.firstname + ' ' + user.lastname,
             Género: user.gender,
             Rut: user.rut,
             Email: user.email,
@@ -49,7 +51,17 @@ export class UsersPage implements OnInit {
             "Fecha de Nacimiento": user.birthdate,
           })
         });
+        
+        this.totalPages = Math.ceil(this.table.rows.length / 5)
       })
+  }
+
+  nextPage() {
+    if (this.page < Math.ceil(this.table.rows.length / 5)) this.page++
+  }
+
+  previousPage() {
+    if (this.page > 0) this.page--
   }
 
 }

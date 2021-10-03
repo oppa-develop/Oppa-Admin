@@ -23,6 +23,8 @@ export class ServicesPage implements OnInit {
     rows: []
   };
   loading: boolean = true
+  page: number = 0
+  totalPages: number
 
   constructor(
     private api: ApiService,
@@ -48,7 +50,16 @@ export class ServicesPage implements OnInit {
             Supercategoría: service.super_category_title
           })
         });
+        this.totalPages = Math.ceil(this.table.rows.length / 5)
       })
+  }
+
+  nextPage() {
+    if (this.page < Math.ceil(this.table.rows.length / 5)) this.page++
+  }
+
+  previousPage() {
+    if (this.page > 0) this.page--
   }
 
   async presentModalNewService() {

@@ -104,4 +104,12 @@ export class ApiService {
   getLastServicesRequested(): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/services/LastRequested`)
   }
+
+  getMostRequestedServices(limit: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/services/MostRequested/limit/${limit}`)
+  }
+
+  getMostRequestedDistricts(limit: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/addresses/MostRequested/limit/${limit}`)
+  }
 }
