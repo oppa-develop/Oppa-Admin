@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ApiService } from 'src/app/providers/api/api.service';
 import { environment } from 'src/environments/environment';
 import { Chart } from 'angular-highcharts';
+import * as dayjs from 'dayjs';
 
 @Component({
   selector: 'app-home',
@@ -68,7 +69,7 @@ export class HomePage {
     chart: undefined,
     categories: []
   }
-  salesPerDay = {
+  totalServices = {
     chart: undefined,
     percentage: 0,
     value: 0,
@@ -86,48 +87,11 @@ export class HomePage {
   ) { }
 
   ionViewWillEnter() {
-    this.loadingServices = true
-    setTimeout(() => {
-      this.loadingServices = false
-    }, 1000)
-    /* this.api.getServices().toPromise()
-    .then((res: any) => {
-      this.loadingServices = false
-      this.lastServicesTable.rows = []
-      res.services.forEach(service => {
-        this.lastServicesTable.rows.push({
-          Servicio: service.title,
-          Categoría: service.category,
-          Supercategoría: service.super_category,
-          Proveedor: service.super_category,
-          Cliente: service.super_category,
-        })
-      });
-    }) */
-
-    this.api.getSalesPerDay().toPromise()
-      .then((res: any) => {
-        this.generateSalesPerDayChart(res.sales)
-      })
-
-    this.api.getMonthlySales().toPromise()
-      .then((res: any) => {
-        this.generateMonthlySalesChart(res.sales)
-      })
-
-    this.api.getNewUsers().toPromise()
-      .then((res: any) => {
-        this.generateNewUsersChart(res.users)
-      })
-
-    this.api.getNewProviders().toPromise()
-      .then((res: any) => {
-        this.generateNewProvidersChart(res.providers)
-      })
 
     this.api.getLastServicesRequested().toPromise()
       .then((res: any) => {
-        res.lastServicesRequested = res.lastServicesRequested.map(service => {
+        this.loadingServices = false
+        this.lastServicesTable.rows = res.lastServicesRequested.map(service => {
           return {
             Servicio: service.service,
             Categoría: service.category,
@@ -138,22 +102,32 @@ export class HomePage {
             Fecha: service.date
           }
         })
-
-        this.lastServicesTable.rows = res.lastServicesRequested
+        
         this.totalPages = Math.ceil(this.lastServicesTable.rows.length / 5)
+
+        this.generateServicesChart({
+          value: this.lastServicesTable.rows.filter(service => service.Estado !== 'cancelado').length,
+          totalValue: this.lastServicesTable.rows.length
+        })
       })
 
     this.api.getMostRequestedServices(5).toPromise()
       .then((res: any) => {
         this.mostRequestedServices = res.mostRequestedServices
       })
-
     this.api.getMostRequestedDistricts(5).toPromise()
       .then((res: any) => {
         this.loadingMostActiveDistricts = false
         this.generateMostActiveDistrictsChart(res.mostRequestedDistricts)
       })
-
+    this.api.getQuanitityOfClients(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise()
+      .then((res: any) => {
+        this.generateNewUsersChart(res.data)
+      })
+    this.api.getQuanitityOfProviders(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise()
+      .then((res: any) => {
+        this.generateNewProvidersChart(res.data)
+      })
   }
 
   nextPage() {
@@ -210,75 +184,8 @@ export class HomePage {
     } as any, true, true);
   }
 
-  generateSalesPerDayChart(data) {
-    this.salesPerDay.percentage = (data.value * 100) / data.totalValue
-    this.salesPerDay.totalValue = data.totalValue
-    this.salesPerDay.value = data.value
-    this.salesPerDay.chart = new Chart({
-      chart: {
-        type: 'solidgauge',
-        backgroundColor: 'transparent',
-        height: '70%',
-        margin: [0, 0, 0, -30]
-      },
-
-      title: {
-        text: undefined
-      },
-
-      tooltip: {
-        borderWidth: 0,
-        backgroundColor: 'none',
-        shadow: false,
-        pointFormat: ''
-      },
-
-      pane: {
-        startAngle: 0,
-        endAngle: 360,
-        background: [{ // Track for Move
-          outerRadius: '112%',
-          innerRadius: '88%',
-          backgroundColor: '#343c54',
-          borderWidth: 0
-        }]
-      },
-
-      yAxis: {
-        min: 0,
-        max: 100,
-        lineWidth: 0,
-        tickPositions: []
-      },
-
-      plotOptions: {
-        solidgauge: {
-          dataLabels: {
-            enabled: false
-          },
-          stickyTracking: false,
-          rounded: true
-        }
-      },
-
-      credits: {
-        enabled: false
-      },
-
-      series: [{
-        name: 'Move',
-        data: [{
-          color: '#3aabf8',
-          radius: '112%',
-          innerRadius: '88%',
-          y: this.salesPerDay.percentage
-        }]
-      }]
-    } as any);
-  }
-
-  generateMonthlySalesChart(data) {
-    this.totalSales.percentage = (data.value * 100) / data.totalValue
+  generateSalesChart(data) {
+    this.totalSales.percentage = ((data.value * 100) / data.totalValue) || 0
     this.totalSales.totalValue = data.totalValue
     this.totalSales.value = data.value
     this.totalSales.chart = new Chart({
@@ -335,7 +242,7 @@ export class HomePage {
       series: [{
         name: 'Move',
         data: [{
-          color: '#2dd36f',
+          color: '#3aabf8',
           radius: '112%',
           innerRadius: '88%',
           y: this.totalSales.percentage
@@ -344,10 +251,77 @@ export class HomePage {
     } as any);
   }
 
+  generateServicesChart(data) {
+    this.totalServices.percentage = ((data.value * 100) / data.totalValue) || 0
+    this.totalServices.totalValue = data.totalValue
+    this.totalServices.value = data.value
+    this.totalServices.chart = new Chart({
+      chart: {
+        type: 'solidgauge',
+        backgroundColor: 'transparent',
+        height: '70%',
+        margin: [0, 0, 0, -30]
+      },
+
+      title: {
+        text: undefined
+      },
+
+      tooltip: {
+        borderWidth: 0,
+        backgroundColor: 'none',
+        shadow: false,
+        pointFormat: ''
+      },
+
+      pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+          outerRadius: '112%',
+          innerRadius: '88%',
+          backgroundColor: '#343c54',
+          borderWidth: 0
+        }]
+      },
+
+      yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+      },
+
+      plotOptions: {
+        solidgauge: {
+          dataLabels: {
+            enabled: false
+          },
+          stickyTracking: false,
+          rounded: true
+        }
+      },
+
+      credits: {
+        enabled: false
+      },
+
+      series: [{
+        name: 'Move',
+        data: [{
+          color: '#2dd36f',
+          radius: '112%',
+          innerRadius: '88%',
+          y: this.totalServices.percentage
+        }]
+      }]
+    } as any);
+  }
+
   generateNewUsersChart(data) {
-    this.newUsers.percentage = (data.value * 100) / data.totalValue
-    this.newUsers.totalValue = data.totalValue
-    this.newUsers.value = data.value
+    this.newUsers.percentage = (data.quantity * 100) / data.total
+    this.newUsers.totalValue = data.total
+    this.newUsers.value = data.quantity
     this.newUsers.chart = new Chart({
       chart: {
         type: 'solidgauge',
@@ -412,9 +386,9 @@ export class HomePage {
   }
 
   generateNewProvidersChart(data) {
-    this.newProviders.percentage = (data.value * 100) / data.totalValue
-    this.newProviders.totalValue = data.totalValue
-    this.newProviders.value = data.value
+    this.newProviders.percentage = (data.quantity * 100) / data.total
+    this.newProviders.totalValue = data.total
+    this.newProviders.value = data.quantity
     this.newProviders.chart = new Chart({
       chart: {
         type: 'solidgauge',

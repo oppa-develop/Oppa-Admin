@@ -112,4 +112,12 @@ export class ApiService {
   getMostRequestedDistricts(limit: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/addresses/MostRequested/limit/${limit}`)
   }
+
+  getQuanitityOfClients(start: string, end: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/clients/quantity/${start}/${end}`)
+  }
+
+  getQuanitityOfProviders(start: string, end: string): Observable<any> {
+    return this.http.get(`${this.apiUrl}/users/providers/quantity/${start}/${end}`)
+  }
 }

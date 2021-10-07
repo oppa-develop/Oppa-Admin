@@ -1,34 +1,36 @@
 <ion-content [fullscreen]="true">
   <ion-grid>
     <ion-row>
+
+      <!-- gráfica de servicios agendados -->
       <ion-col size="3">
         <ion-card color="secondary" class="ion-padding">
           <ion-card-header class="ion-no-padding">
             <ion-grid>
               <ion-row>
                 <ion-col size="5.5">
-                  <div [chart]="salesPerDay.chart"></div>
+                  <div [chart]="totalServices.chart"></div>
                   <h1 class="chart-percentage">
-                    <ion-text><strong>{{salesPerDay.percentage | number: '1.0-0'}}%</strong></ion-text>
+                    <ion-text><strong>{{totalServices.percentage | number: '1.0-0'}}%</strong></ion-text>
                   </h1>
                 </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <ion-col size="12">
-                      <h1 class="ion-float-right">
-                        <ion-text color="primary"><strong>{{salesPerDay.value}}</strong></ion-text>
-                      </h1>
-                    </ion-col>
-                    <ion-col size="12">
-                      <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
-                    </ion-col>
-                  </ion-row>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text color="primary"><strong>{{totalServices.value}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Servicios agendados</strong></ion-text>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-header>
         </ion-card>
       </ion-col>
+
+      <!-- gráfica de venta mensual -->
       <ion-col size="3">
         <ion-card color="secondary" class="ion-padding">
           <ion-card-header class="ion-no-padding">
@@ -40,23 +42,23 @@
                     <ion-text><strong>{{totalSales.percentage | number: '1.0-0'}}%</strong></ion-text>
                   </h1>
                 </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <ion-col size="12">
-                      <h1 class="ion-float-right">
-                        <ion-text color="success"><strong>{{totalSales.value}}</strong></ion-text>
-                      </h1>
-                    </ion-col>
-                    <ion-col size="12">
-                      <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
-                    </ion-col>
-                  </ion-row>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text color="success"><strong>{{totalSales.value}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Venta mensual</strong></ion-text>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-header>
         </ion-card>
       </ion-col>
+
+      <!-- gráfica de clientes -->
       <ion-col size="3">
         <ion-card color="secondary" class="ion-padding">
           <ion-card-header class="ion-no-padding">
@@ -68,23 +70,25 @@
                     <ion-text><strong>{{newUsers.percentage | number: '1.0-0'}}%</strong></ion-text>
                   </h1>
                 </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <ion-col size="12">
-                      <h1 class="ion-float-right">
-                        <ion-text class="fuchsia-value"><strong>{{newUsers.value}}</strong></ion-text>
-                      </h1>
-                    </ion-col>
-                    <ion-col size="12">
-                      <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
-                    </ion-col>
-                  </ion-row>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text class="fuchsia-value"><strong>{{newUsers.value}}</strong></ion-text>
+                    <ion-text color="light"><strong>/</strong></ion-text>
+                    <ion-text class="fuchsia-value"><strong>{{newUsers.totalValue}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Clientes nuevos</strong></ion-text>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-header>
         </ion-card>
       </ion-col>
+
+      <!-- gráfica de proveedores -->
       <ion-col size="3">
         <ion-card color="secondary" class="ion-padding">
           <ion-card-header class="ion-no-padding">
@@ -96,26 +100,29 @@
                     <ion-text><strong>{{newProviders.percentage | number: '1.0-0'}}%</strong></ion-text>
                   </h1>
                 </ion-col>
-                <ion-col>
-                  <ion-row>
-                    <ion-col size="12">
-                      <h1 class="ion-float-right">
-                        <ion-text color="warning"><strong>{{newProviders.value}}</strong></ion-text>
-                      </h1>
-                    </ion-col>
-                    <ion-col size="12">
-                      <ion-text class="ion-float-right"><strong>{{'Ventas de hoy'}}</strong></ion-text>
-                    </ion-col>
-                  </ion-row>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text color="warning"><strong>{{newProviders.value}}</strong></ion-text>
+                    <ion-text color="light"><strong>/</strong></ion-text>
+                    <ion-text color="warning"><strong>{{newProviders.totalValue}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Proveedores nuevos</strong></ion-text>
                 </ion-col>
               </ion-row>
             </ion-grid>
           </ion-card-header>
         </ion-card>
       </ion-col>
+
     </ion-row>
 
     <ion-row>
+
+      <!-- gráfica de comunas más activas -->
       <ion-col size="8">
         <ion-row>
           <ion-card color="secondary" class="card-with-100">
@@ -157,6 +164,8 @@
           </ion-card>
         </ion-row> -->
         <ion-row>
+
+          <!-- listado de servicios más solicitados -->
           <ion-card color="secondary">
             <ion-card-header>
               <ion-text color="light"><strong>{{'Servicios más solicitados' | uppercase}}</strong></ion-text>
@@ -182,11 +191,14 @@
               </ion-list>
             </ion-card-content>
           </ion-card>
+
         </ion-row>
       </ion-col>
     </ion-row>
     
     <ion-row>
+
+      <!-- tabla Últimos servicios solicitados -->
       <ion-card color="secondary" class="card-with-100">
         <ion-card-header>
           <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
@@ -196,9 +208,9 @@
           <table class="categories-tb" *ngIf="!loadingServices">
             <thead>
               <tr>
-                <td *ngFor="let column of lastServicesTable.columns"><strong>
-                    <ion-text color="light">{{ column.name }}</ion-text>
-                  </strong></td>
+                <td *ngFor="let column of lastServicesTable.columns">
+                  <strong><ion-text color="light">{{ column.name }}</ion-text></strong>
+                </td>
               </tr>
             </thead>
             <tbody>
@@ -227,6 +239,7 @@
         </ion-button>
         <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
       </ion-card>
+
     </ion-row>
   </ion-grid>
 </ion-content>
