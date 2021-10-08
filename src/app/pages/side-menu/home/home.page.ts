@@ -87,11 +87,18 @@ export class HomePage {
   ) { }
 
   ionViewWillEnter() {
-
-    this.api.getLastServicesRequested().toPromise()
-      .then((res: any) => {
+    
+    Promise.all([
+      this.api.getLastServicesRequested().toPromise(),
+      this.api.getMostRequestedServices(5).toPromise(),
+      this.api.getMostRequestedDistricts(5).toPromise(),
+      this.api.getQuanitityOfClients(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise(),
+      this.api.getQuanitityOfProviders(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise(),
+    ])
+      .then(([res1, res2, res3, res4, res5]: any) => {
+        // generamos la tabla de servicios recientes
         this.loadingServices = false
-        this.lastServicesTable.rows = res.lastServicesRequested.map(service => {
+        this.lastServicesTable.rows = res1.lastServicesRequested.map(service => {
           return {
             Servicio: service.service,
             Categoría: service.category,
@@ -105,28 +112,24 @@ export class HomePage {
         
         this.totalPages = Math.ceil(this.lastServicesTable.rows.length / 5)
 
+        // generamos el gráfico de servicios agendados
         this.generateServicesChart({
           value: this.lastServicesTable.rows.filter(service => service.Estado !== 'cancelado').length,
           totalValue: this.lastServicesTable.rows.length
         })
-      })
 
-    this.api.getMostRequestedServices(5).toPromise()
-      .then((res: any) => {
-        this.mostRequestedServices = res.mostRequestedServices
-      })
-    this.api.getMostRequestedDistricts(5).toPromise()
-      .then((res: any) => {
+        // cargamos el listado de servicios más solicitados
+        this.mostRequestedServices = res2.mostRequestedServices
+
+        // generamos el gráfico de comunas más activas
         this.loadingMostActiveDistricts = false
-        this.generateMostActiveDistrictsChart(res.mostRequestedDistricts)
-      })
-    this.api.getQuanitityOfClients(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise()
-      .then((res: any) => {
-        this.generateNewUsersChart(res.data)
-      })
-    this.api.getQuanitityOfProviders(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise()
-      .then((res: any) => {
-        this.generateNewProvidersChart(res.data)
+        this.generateMostActiveDistrictsChart(res3.mostRequestedDistricts)
+        
+        // generamos el gráfico usuarios nuevos
+        this.generateNewUsersChart(res4.data)
+
+        // generamos el gráfico proveedores nuevos
+        this.generateNewProvidersChart(res5.data)
       })
   }
 
