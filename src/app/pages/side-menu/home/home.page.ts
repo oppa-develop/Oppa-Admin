@@ -17,6 +17,9 @@ export class HomePage {
   page: number = 0
   totalPages: number
   mostRequestedServices: any[] = []
+  salesAmounth: number
+  servicesNotCanceledQuantity: number = 0
+  totalServicesQuantity: number = 0
 
   // tablas
   public lastServicesTable: any = {
@@ -81,7 +84,6 @@ export class HomePage {
     value: 0,
     totalValue: 0
   }
-  salesAmounth: number
 
   constructor(
     private api: ApiService
@@ -115,9 +117,11 @@ export class HomePage {
         this.totalPages = Math.ceil(this.lastServicesTable.rows.length / 5)
 
         // generamos el gráfico de servicios agendados
+        this.servicesNotCanceledQuantity = this.lastServicesTable.rows.filter(service => service.Estado !== 'cancelado').length
+        this.totalServicesQuantity = this.lastServicesTable.rows.length
         this.generateServicesChart({
-          value: this.lastServicesTable.rows.filter(service => service.Estado !== 'cancelado').length,
-          totalValue: this.lastServicesTable.rows.length
+          value: this.servicesNotCanceledQuantity,
+          totalValue: this.totalServicesQuantity
         })
 
         // cargamos el listado de servicios más solicitados
@@ -134,7 +138,7 @@ export class HomePage {
         this.generateNewProvidersChart(res5.data)
 
         // generamos el gráfico de ventas
-        this.salesAmounth = res6.salesAmounth || 1123423
+        this.salesAmounth = res6.salesAmounth || 0
       })
   }
 
