@@ -242,7 +242,7 @@ export class HomePage {
       series: [{
         name: 'Move',
         data: [{
-          color: '#3aabf8',
+          color: '#2dd36f',
           radius: '112%',
           innerRadius: '88%',
           y: this.totalSales.percentage
@@ -309,7 +309,7 @@ export class HomePage {
       series: [{
         name: 'Move',
         data: [{
-          color: '#2dd36f',
+          color: '#3aabf8',
           radius: '112%',
           innerRadius: '88%',
           y: this.totalServices.percentage
