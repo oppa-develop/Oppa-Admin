@@ -81,21 +81,23 @@ export class HomePage {
     value: 0,
     totalValue: 0
   }
+  salesAmounth: number
 
   constructor(
     private api: ApiService
   ) { }
 
   ionViewWillEnter() {
-    
+
     Promise.all([
       this.api.getLastServicesRequested().toPromise(),
       this.api.getMostRequestedServices(5).toPromise(),
       this.api.getMostRequestedDistricts(5).toPromise(),
       this.api.getQuanitityOfClients(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise(),
       this.api.getQuanitityOfProviders(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise(),
+      this.api.getSalesAmounth(dayjs().date(1).format('YYYY-MM-DD'), dayjs().date(31).format('YYYY-MM-DD')).toPromise(),
     ])
-      .then(([res1, res2, res3, res4, res5]: any) => {
+      .then(([res1, res2, res3, res4, res5, res6]: any) => {
         // generamos la tabla de servicios recientes
         this.loadingServices = false
         this.lastServicesTable.rows = res1.lastServicesRequested.map(service => {
@@ -130,6 +132,9 @@ export class HomePage {
 
         // generamos el gráfico proveedores nuevos
         this.generateNewProvidersChart(res5.data)
+
+        // generamos el gráfico de ventas
+        this.salesAmounth = res6.salesAmounth || 1123423
       })
   }
 
@@ -186,7 +191,7 @@ export class HomePage {
       title: undefined
     } as any, true, true);
   }
-
+/* 
   generateSalesChart(data) {
     this.totalSales.percentage = ((data.value * 100) / data.totalValue) || 0
     this.totalSales.totalValue = data.totalValue
@@ -252,7 +257,7 @@ export class HomePage {
         }]
       }]
     } as any);
-  }
+  } */
 
   generateServicesChart(data) {
     this.totalServices.percentage = ((data.value * 100) / data.totalValue) || 0

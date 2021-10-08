@@ -55,50 +55,8 @@ export class ApiService {
     return this.http.post(`${this.apiUrl}/services/new-service`, formData)
   }
 
-  getMostActiveDistricts() {
-    return of({
-      success: true,
-      message: 'most active districts of the month',
-      districts: [
-        { district: 'Recoleta',     region: 'Metropolitana de Santiago', servicesCount: 100 },
-        { district: 'Conchalí',     region: 'Metropolitana de Santiago', servicesCount: 50 },
-        { district: 'Providencia',  region: 'Metropolitana de Santiago', servicesCount: 0 },
-        { district: 'Vitacura',     region: 'Metropolitana de Santiago', servicesCount: 70 },
-        { district: 'Huechuraba',   region: 'Metropolitana de Santiago', servicesCount: 20 }
-      ]
-    })
-  }
-
-  getSalesPerDay() {
-    return of({
-      success: true,
-      message: 'most active districts of the month',
-      sales: { date: new Date(), value: Math.ceil(Math.random() * 1000), totalValue: Math.ceil(Math.random() * 100000) }
-    })
-  }
-
-  getMonthlySales() {
-    return of({
-      success: true,
-      message: 'most active districts of the month',
-      sales: { date: new Date(), value: Math.ceil(Math.random() * 1000),  totalValue: Math.ceil(Math.random() * 100000) }
-    })
-  }
-
-  getNewUsers() {
-    return of({
-      success: true,
-      message: 'most active districts of the month',
-      users: { date: new Date(), value: Math.ceil(Math.random() * 10),  totalValue: Math.ceil(Math.random() * 100) }
-    })
-  }
-
-  getNewProviders() {
-    return of({
-      success: true,
-      message: 'most active districts of the month',
-      providers: { date: new Date(), value: Math.ceil(Math.random() * 10),  totalValue: Math.ceil(Math.random() * 100) }
-    })
+  getSalesAmounth(start, end): Observable<any> {
+    return this.http.get(`${this.apiUrl}/services/sales-amounth/${start}/${end}`)
   }
 
   getLastServicesRequested(): Observable<any[]> {
