@@ -15,6 +15,7 @@ export class SideMenuPage implements OnInit {
     { title: 'Categorias',  icon: 'reader',     url: '/sidemenu/categories'},
     { title: 'Servicios',   icon: 'construct',  url: '/sidemenu/services'},
     { title: 'Usuarios',    icon: 'person',     url: '/sidemenu/users'},
+    { title: 'Pagos',       icon: 'receipt',    url: '/sidemenu/payments'},
   ]
   user: User;
   apiUrl: string = environment.HOST + '/'

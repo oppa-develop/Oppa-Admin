@@ -78,4 +78,81 @@ export class ApiService {
   getQuanitityOfProviders(start: string, end: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/users/providers/quantity/${start}/${end}`)
   }
+
+  getPayments(): Observable<any[]> {
+    // return this.http.get<any[]>(`${this.apiUrl}/payments`)
+    return of([
+      {
+        success: true,
+        message: 'all payments.',
+        payments: [
+          {
+            amount: 9990,
+            state: 'por pagar',
+            buyOrder: 'CLTBK20211105',
+            provider: {
+              firstname: 'Juan',
+              lastname: 'Perez',
+            },
+            client: {
+              firstname: 'Carlos',
+              lastname: 'Dominguez',
+            }
+          },{
+            amount: 9990,
+            state: 'pagado',
+            buyOrder: 'CLTBK20211105',
+            provider: {
+              firstname: 'Juan',
+              lastname: 'Perez',
+            },
+            client: {
+              firstname: 'Carlos',
+              lastname: 'Dominguez',
+            }
+          },{
+            amount: 9990,
+            state: 'cancelado',
+            buyOrder: 'CLTBK20211105',
+            provider: {
+              firstname: 'Juan',
+              lastname: 'Perez',
+            },
+            client: {
+              firstname: 'Carlos',
+              lastname: 'Dominguez',
+            }
+          },{
+            amount: 9990,
+            state: 'por pagar',
+            buyOrder: 'CLTBK20211105',
+            provider: {
+              firstname: 'Juan',
+              lastname: 'Perez',
+            },
+            client: {
+              firstname: 'Carlos',
+              lastname: 'Dominguez',
+            }
+          },{
+            amount: 9990,
+            state: 'reembolsado',
+            buyOrder: 'CLTBK20211105',
+            provider: {
+              firstname: 'Juan',
+              lastname: 'Perez',
+            },
+            client: {
+              firstname: 'Carlos',
+              lastname: 'Dominguez',
+            }
+          },
+        ]
+      }
+    ])
+  }
+
+  updatePayment(data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/payments/edit-payment`, data)
+  }
 }

@@ -20,12 +20,13 @@ export class NewSupercategoryPage implements OnInit {
 
   ngOnInit() {
     this.newSupercategoryForm = this.createNewSupercategoryForm()
+    console.log(this.newSupercategoryForm.value)
   }
 
   createNewSupercategoryForm() {
     return this.formBuilder.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required]
+      title: ['Servicios de Acompañamiento', Validators.required],
+      description: ['Servicios que se realizan fuera del hogar del cliente', Validators.required]
     })
   }
 
@@ -34,7 +35,7 @@ export class NewSupercategoryPage implements OnInit {
   }
 
   createSupercategory() {
-    // if (!this.newSupercategoryForm.valid) throw Error('Invalid Form')
+    if (!this.newSupercategoryForm.valid) throw Error('Invalid Form')
     console.log(this.newSupercategoryForm.value)
     this.api.createSupercategory(this.newSupercategoryForm.value).toPromise()
       .then((res: any) => {

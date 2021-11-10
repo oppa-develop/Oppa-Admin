@@ -26,6 +26,10 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: () => import('./users/users.module').then( m => m.UsersPageModule)
+      },
+      {
+        path: 'payments',
+        loadChildren: () => import('./payments/payments.module').then( m => m.PaymentsPageModule)
       }
     ]
   },
@@ -33,7 +37,12 @@ const routes: Routes = [
     path: '',
     redirectTo: '/sidemenu/home',
     pathMatch: 'full'
+  },
+  {
+    path: 'payments',
+    loadChildren: () => import('./payments/payments.module').then( m => m.PaymentsPageModule)
   }
+
 ];
 
 @NgModule({
