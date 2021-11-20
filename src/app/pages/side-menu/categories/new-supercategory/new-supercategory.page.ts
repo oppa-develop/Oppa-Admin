@@ -13,20 +13,19 @@ export class NewSupercategoryPage implements OnInit {
   newSupercategoryForm: FormGroup
 
   constructor(
-    private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
     this.newSupercategoryForm = this.createNewSupercategoryForm()
-    console.log(this.newSupercategoryForm.value)
   }
 
   createNewSupercategoryForm() {
     return this.formBuilder.group({
       title: ['Servicios de Acompañamiento', Validators.required],
-      description: ['Servicios que se realizan fuera del hogar del cliente', Validators.required]
+      description: ['Servicios que se realizan fuera del hogar del cliente oppa', Validators.required]
     })
   }
 

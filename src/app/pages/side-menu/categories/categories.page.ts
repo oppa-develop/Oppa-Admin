@@ -93,8 +93,6 @@ export class CategoriesPage implements OnInit {
 
     modal.onDidDismiss()
       .then((newSupercategory) => {
-        console.log('en vista', newSupercategory.data);
-        
         if (newSupercategory.data) this.superCategoriesTable.rows.push({
           Título: newSupercategory.data.title,
           Descripción: newSupercategory.data.description

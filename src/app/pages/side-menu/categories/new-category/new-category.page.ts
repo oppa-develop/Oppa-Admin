@@ -41,7 +41,8 @@ export class NewCategoryPage implements OnInit {
 
   createCategory() {
     if (!this.newCategoryForm.valid) throw Error('Invalid Form')
-    this.api.createCategory(this.newCategoryForm.value).toPromise()
+    console.log(this.newCategoryForm.value)
+    /* this.api.createCategory(this.newCategoryForm.value).toPromise()
       .then((res: any) => {
         const index = this.superCategories.findIndex(superCategory => {
           return superCategory.super_category_id == this.newCategoryForm.value.super_categories_super_category_id
@@ -49,7 +50,7 @@ export class NewCategoryPage implements OnInit {
         delete this.newCategoryForm.value.super_categories_super_category_id
         this.newCategoryForm.value.super_category = this.superCategories[index].title
         this.modalController.dismiss(this.newCategoryForm.value)
-      })
+      }) */
   }
 
 }

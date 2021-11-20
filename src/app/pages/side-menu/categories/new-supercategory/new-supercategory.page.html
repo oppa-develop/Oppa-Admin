@@ -4,7 +4,7 @@
       <ion-col>
         <form [formGroup]="newSupercategoryForm" (ngSubmit)="createSupercategory()" ngNativeValidate>
           <ion-text color="light">
-            <h1 class="ion-no-margin ion-margin-bottom ion-padding-bottom ion-text-center"><strong>Crear Nueva Supercategoría</strong></h1>
+            <h1 class="ion-no-margin ion-margin-bottom ion-padding-bottom ion-text-center">Crear Nueva Supercategoría</h1>
           </ion-text>
           <ion-list lines="none">
             <ion-item>
@@ -17,7 +17,7 @@
             </ion-item>
           </ion-list>
           <ion-footer>
-            <ion-button type="submit" class="ion-float-end">Crear</ion-button>
+            <ion-button class="ion-float-end" type="submit">Crear</ion-button>
             <ion-button class="ion-float-end btn-secondary" (click)="cancel()">Cancelar</ion-button>
           </ion-footer>
         </form>

@@ -13,8 +13,8 @@ const routes: Routes = [
     loadChildren: () => import('./new-category/new-category.module').then( m => m.NewCategoryPageModule)
   },
   {
-    path: 'new-superCategory',
-    loadChildren: () => import('./new-superCategory/new-superCategory.module').then( m => m.NewSupercategoryPageModule)
+    path: 'new-supercategory',
+    loadChildren: () => import('./new-supercategory/new-supercategory.module').then( m => m.NewSupercategoryPageModule)
   }
 ];
 
