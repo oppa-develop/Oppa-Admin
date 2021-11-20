@@ -24,8 +24,8 @@ export class NewSupercategoryPage implements OnInit {
 
   createNewSupercategoryForm() {
     return this.formBuilder.group({
-      title: ['Servicios de Acompañamiento', Validators.required],
-      description: ['Servicios que se realizan fuera del hogar del cliente oppa', Validators.required]
+      title: ['', Validators.required],
+      description: ['', Validators.required]
     })
   }
 
