@@ -18,7 +18,8 @@ export class ServicesPage implements OnInit {
       { name: 'Precio' },
       { name: 'Esencial' },
       { name: 'Categoría' },
-      { name: 'Supercategoría' }
+      { name: 'Supercategoría' },
+      { name: 'Comisión (%)' }
     ],
     rows: []
   };
@@ -47,7 +48,8 @@ export class ServicesPage implements OnInit {
             Precio: service.price,
             Esencial: service.isBasic || 'no',
             Categoría: service.category_title,
-            Supercategoría: service.super_category_title
+            Supercategoría: service.super_category_title,
+            'Comisión (%)': service.commission
           })
         });
         this.totalPages = Math.ceil(this.table.rows.length / 5)

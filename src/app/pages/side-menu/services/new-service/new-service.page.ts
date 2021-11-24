@@ -39,6 +39,7 @@ export class NewServicePage implements OnInit {
       super_category_title: ['', Validators.required],
       isBasic: [false, Validators.required],
       state: ['active', Validators.required],
+      commission: ['', Validators.required],
       image: ['', Validators.required]
     })
   }

@@ -36,6 +36,10 @@
               <ion-toggle formControlName="isBasic" mode="ios"></ion-toggle>
             </ion-item>
             <ion-item>
+              <ion-label color="light" position="floating">Comisión (%)</ion-label>
+              <ion-input color="light" formControlName="commission" type="number" class="ion-text-right" required></ion-input>
+            </ion-item>
+            <ion-item>
               <ion-label color="light" position="fixed">Imagen</ion-label>
               <input hidden #image color="light" formControlName="image" type="file" (change)="imageSelected($event)" required>
               <ion-button color="light file-btn" (click)="image.click()">{{ btnImageText }}</ion-button>
