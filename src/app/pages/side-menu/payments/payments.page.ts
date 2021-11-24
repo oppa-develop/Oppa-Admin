@@ -43,7 +43,7 @@ export class PaymentsPage implements OnInit {
         this.table.rows = []
         res.payments.forEach(payment => {
           this.table.rows.push({
-            'Monto': payment.amount,
+            'Monto': payment.amount - (payment.amount * payment.service.commission),
             'Estado': payment.state,
             'Nº de Orden': payment.buyOrder,
             'Proveedor': payment.provider.firstname + ' ' + payment.provider.lastname,
