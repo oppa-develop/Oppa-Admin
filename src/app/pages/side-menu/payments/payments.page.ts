@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/providers/api/api.service';
 import { environment } from 'src/environments/environment';
 
@@ -11,11 +12,12 @@ export class PaymentsPage implements OnInit {
 
   public table: any = {
     columns: [
-      { name: 'amount' },
-      { name: 'state' },
-      { name: 'buyOrder' },
-      { name: 'provider' },
-      { name: 'client' },
+      { name: 'Monto' },
+      { name: 'Estado' },
+      { name: 'Nº de Orden' },
+      { name: 'Proveedor' },
+      { name: 'Cliente' },
+      { name: 'Servicio' },
       { name: '' }
     ],
     rows: []
@@ -26,7 +28,8 @@ export class PaymentsPage implements OnInit {
   totalPages: number
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private alertController: AlertController
   ) { }
 
   ngOnInit() {
@@ -38,14 +41,15 @@ export class PaymentsPage implements OnInit {
       .then((res: any) => {
         this.loading = false
         this.table.rows = []
-        console.log(res)
-        res[0].payments.forEach(payment => {
+        res.payments.forEach(payment => {
           this.table.rows.push({
-            amount: payment.amount,
-            state: payment.state,
-            buyOrder: payment.buyOrder,
-            provider: payment.provider.firstname + ' ' + payment.provider.lastname,
-            client: payment.client.firstname + ' ' + payment.client.lastname
+            'Monto': payment.amount,
+            'Estado': payment.state,
+            'Nº de Orden': payment.buyOrder,
+            'Proveedor': payment.provider.firstname + ' ' + payment.provider.lastname,
+            'Cliente': payment.client.firstname + ' ' + payment.client.lastname,
+            'Servicio': payment.service.title,
+            'id': payment.payment_id
           })
         });
         
@@ -59,5 +63,74 @@ export class PaymentsPage implements OnInit {
 
   previousPage() {
     if (this.page > 0) this.page--
+  }
+
+  async changeState(payment_id) {
+    const payment = this.table.rows.find(payment => payment.id == payment_id)
+    console.log({payment}, payment_id)
+    let newState = payment['Estado']
+    const alert = await this.alertController.create({
+      header: 'Estado del pago',
+      inputs: [
+        {
+          type: 'radio',
+          label: 'Pagado',
+          handler: () => {
+            newState = 'Pagado'
+          },
+          checked: (payment['Estado'].toLowerCase() === 'pagado') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Por pagar',
+          handler: () => {
+            newState = 'Por pagar'
+          },
+          checked: (payment['Estado'].toLowerCase() === 'por pagar') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Cancelado',
+          handler: () => {
+            newState = 'Cancelado'
+          },
+          checked: (payment['Estado'].toLowerCase() === 'cancelado') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'Reembolsado',
+          handler: () => {
+            newState = 'Reembolsado'
+          },
+          checked: (payment['Estado'].toLowerCase() === 'reembolsado') ? true : false
+        },
+        {
+          type: 'radio',
+          label: 'En proceso',
+          handler: () => {
+            newState = 'En proceso'
+          },
+          checked: (payment['Estado'].toLowerCase() === 'en proce') ? true : false
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Aceptar',
+          handler: () => {
+            this.api.updatePayment({payment_id, state: newState}).toPromise()
+            this.table.rows.find(payment => payment.id == payment_id).Estado = newState
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

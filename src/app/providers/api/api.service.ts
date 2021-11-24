@@ -80,76 +80,76 @@ export class ApiService {
   }
 
   getPayments(): Observable<any[]> {
-    // return this.http.get<any[]>(`${this.apiUrl}/payments`)
-    return of([
-      {
-        success: true,
-        message: 'all payments.',
-        payments: [
-          {
-            amount: 9990,
-            state: 'por pagar',
-            buyOrder: 'CLTBK20211105',
-            provider: {
-              firstname: 'Juan',
-              lastname: 'Perez',
-            },
-            client: {
-              firstname: 'Carlos',
-              lastname: 'Dominguez',
-            }
-          },{
-            amount: 9990,
-            state: 'pagado',
-            buyOrder: 'CLTBK20211105',
-            provider: {
-              firstname: 'Juan',
-              lastname: 'Perez',
-            },
-            client: {
-              firstname: 'Carlos',
-              lastname: 'Dominguez',
-            }
-          },{
-            amount: 9990,
-            state: 'cancelado',
-            buyOrder: 'CLTBK20211105',
-            provider: {
-              firstname: 'Juan',
-              lastname: 'Perez',
-            },
-            client: {
-              firstname: 'Carlos',
-              lastname: 'Dominguez',
-            }
-          },{
-            amount: 9990,
-            state: 'por pagar',
-            buyOrder: 'CLTBK20211105',
-            provider: {
-              firstname: 'Juan',
-              lastname: 'Perez',
-            },
-            client: {
-              firstname: 'Carlos',
-              lastname: 'Dominguez',
-            }
-          },{
-            amount: 9990,
-            state: 'reembolsado',
-            buyOrder: 'CLTBK20211105',
-            provider: {
-              firstname: 'Juan',
-              lastname: 'Perez',
-            },
-            client: {
-              firstname: 'Carlos',
-              lastname: 'Dominguez',
-            }
-          },
-        ]
-      }
-    ])
+    return this.http.get<any[]>(`${this.apiUrl}/payments`)
+    // return of([
+    //   {
+    //     success: true,
+    //     message: 'all payments.',
+    //     payments: [
+    //       {
+    //         amount: 9990,
+    //         state: 'por pagar',
+    //         buyOrder: 'CLTBK20211105',
+    //         provider: {
+    //           firstname: 'Juan',
+    //           lastname: 'Perez',
+    //         },
+    //         client: {
+    //           firstname: 'Carlos',
+    //           lastname: 'Dominguez',
+    //         }
+    //       },{
+    //         amount: 9990,
+    //         state: 'pagado',
+    //         buyOrder: 'CLTBK20211105',
+    //         provider: {
+    //           firstname: 'Juan',
+    //           lastname: 'Perez',
+    //         },
+    //         client: {
+    //           firstname: 'Carlos',
+    //           lastname: 'Dominguez',
+    //         }
+    //       },{
+    //         amount: 9990,
+    //         state: 'cancelado',
+    //         buyOrder: 'CLTBK20211105',
+    //         provider: {
+    //           firstname: 'Juan',
+    //           lastname: 'Perez',
+    //         },
+    //         client: {
+    //           firstname: 'Carlos',
+    //           lastname: 'Dominguez',
+    //         }
+    //       },{
+    //         amount: 9990,
+    //         state: 'por pagar',
+    //         buyOrder: 'CLTBK20211105',
+    //         provider: {
+    //           firstname: 'Juan',
+    //           lastname: 'Perez',
+    //         },
+    //         client: {
+    //           firstname: 'Carlos',
+    //           lastname: 'Dominguez',
+    //         }
+    //       },{
+    //         amount: 9990,
+    //         state: 'reembolsado',
+    //         buyOrder: 'CLTBK20211105',
+    //         provider: {
+    //           firstname: 'Juan',
+    //           lastname: 'Perez',
+    //         },
+    //         client: {
+    //           firstname: 'Carlos',
+    //           lastname: 'Dominguez',
+    //         }
+    //       },
+    //     ]
+    //   }
+    // ])
   }
 
   updatePayment(data: any): Observable<any> {

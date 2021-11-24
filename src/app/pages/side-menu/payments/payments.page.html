@@ -23,23 +23,27 @@
               </thead>
               <tbody>
                 <tr *ngFor="let row of table.rows.slice(page * 5, (page * 5) + 5)">
-                  <td>{{ row['amount'] }}</td>
+                  <td>{{ row['Monto'] }}</td>
                   <td>
-                    <ion-button *ngIf="row['state'].toLowerCase() === 'por pagar'" class="amber state">
-                      {{ row['state'] }}
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'por pagar'" class="amber state">
+                      {{ row['Estado'] }}
                     </ion-button>
-                    <ion-button *ngIf="row['state'].toLowerCase() === 'pagado' || row['state'].toLowerCase() === 'reembolsado'" class="state" color="success">
-                      {{ row['state'] }}
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'pagado' || row['Estado'].toLowerCase() === 'reembolsado'" class="state" color="success">
+                      {{ row['Estado'] }}
                     </ion-button>
-                    <ion-button *ngIf="row['state'].toLowerCase() === 'cancelado'" class="state" color="danger">
-                      {{ row['state'] }}
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'cancelado'" class="state" color="danger">
+                      {{ row['Estado'] }}
+                    </ion-button>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'en proceso'" class="state" color="light">
+                      {{ row['Estado'] }}
                     </ion-button>
                   </td>
-                  <td>{{ row['buyOrder'] }}</td>
-                  <td>{{ row['provider'] }}</td>
-                  <td>{{ row['client'] }}</td>
+                  <td>{{ row['Nº de Orden'] }}</td>
+                  <td>{{ row['Proveedor'] }}</td>
+                  <td>{{ row['Cliente'] }}</td>
+                  <td>{{ row['Servicio'] }}</td>
                   <td>
-                    <ion-button expand="block" fill="clear"><ion-icon name="create-outline"></ion-icon></ion-button>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() !== 'en proceso'" (click)="changeState(row['id'])" expand="block" fill="clear"><ion-icon name="create-outline"></ion-icon></ion-button>
                   </td>
                 </tr>
               </tbody>
