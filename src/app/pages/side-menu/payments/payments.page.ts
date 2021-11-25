@@ -68,51 +68,55 @@ export class PaymentsPage implements OnInit {
   async changeState(payment_id) {
     const payment = this.table.rows.find(payment => payment.id == payment_id)
     console.log({payment}, payment_id)
-    let newState = payment['Estado']
-    const alert = await this.alertController.create({
-      header: 'Estado del pago',
-      inputs: [
-        {
+    let newState = payment['Estado'].toLowerCase()
+    let inputs = []
+    switch (newState) {
+      case 'en proceso':
+        inputs = []
+        break;
+      case 'por pagar':
+      case 'pagado':
+        inputs.push({
           type: 'radio',
           label: 'Pagado',
           handler: () => {
             newState = 'Pagado'
           },
           checked: (payment['Estado'].toLowerCase() === 'pagado') ? true : false
-        },
-        {
+        })
+        inputs.push({
           type: 'radio',
           label: 'Por pagar',
           handler: () => {
             newState = 'Por pagar'
           },
           checked: (payment['Estado'].toLowerCase() === 'por pagar') ? true : false
-        },
-        {
-          type: 'radio',
-          label: 'Cancelado',
-          handler: () => {
-            newState = 'Cancelado'
-          },
-          checked: (payment['Estado'].toLowerCase() === 'cancelado') ? true : false
-        },
-        {
+        })
+        break;
+      case 'cancelado':
+      case 'reembolsado':
+        inputs.push({
           type: 'radio',
           label: 'Reembolsado',
           handler: () => {
             newState = 'Reembolsado'
           },
           checked: (payment['Estado'].toLowerCase() === 'reembolsado') ? true : false
-        },
-        {
+        })
+        inputs.push({
           type: 'radio',
-          label: 'En proceso',
+          label: 'Cancelado',
           handler: () => {
-            newState = 'En proceso'
+            newState = 'Cancelado'
           },
-          checked: (payment['Estado'].toLowerCase() === 'en proce') ? true : false
-        }
-      ],
+          checked: (payment['Estado'].toLowerCase() === 'cancelado') ? true : false
+        })
+        break;
+    }
+
+    const alert = await this.alertController.create({
+      header: 'Estado del pago',
+      inputs,
       buttons: [
         {
           text: 'Cancelar',
