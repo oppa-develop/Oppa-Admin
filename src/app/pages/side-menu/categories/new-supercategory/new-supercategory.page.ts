@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/providers/api/api.service';
 
 @Component({
@@ -15,7 +15,8 @@ export class NewSupercategoryPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private api: ApiService,
-    private modalController: ModalController
+    private modalController: ModalController,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -33,12 +34,20 @@ export class NewSupercategoryPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  createSupercategory() {
+  async createSupercategory() {
     if (!this.newSupercategoryForm.valid) throw Error('Invalid Form')
-    console.log(this.newSupercategoryForm.value)
+    const loading = await this.loadingController.create({
+      message: 'Creando super categoría...'
+    });
+    await loading.present()
     this.api.createSupercategory(this.newSupercategoryForm.value).toPromise()
       .then((res: any) => {
+        loading.dismiss()
         this.modalController.dismiss(this.newSupercategoryForm.value)
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err)
       })
   }
 

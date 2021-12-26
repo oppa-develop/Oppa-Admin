@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/providers/api/api.service';
 
 @Component({
@@ -19,7 +19,8 @@ export class NewServicePage implements OnInit {
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -48,17 +49,23 @@ export class NewServicePage implements OnInit {
     this.modalController.dismiss();
   }
 
-  createService() {
+  async createService() {
     if (!this.newServiceForm.valid) throw Error('Invalid Form')
+    const loading = await this.loadingController.create({
+      message: 'Creando servicio...'
+    });
+    await loading.present()
     this.api.createService(this.newServiceForm.value).toPromise()
       .then((res: any) => {
-        const index = this.categories.findIndex(category => {
-          return category.category_id == this.newServiceForm.value.categories_category_id
-        })
+        loading.dismiss()
+        const index = this.categories.findIndex(category => category.category_id == this.newServiceForm.value.categories_category_id)
         this.newServiceForm.value.category_title = this.categories[index].title
         this.modalController.dismiss(this.newServiceForm.value)
       })
-    
+      .catch(err => {
+        loading.dismiss()
+        console.log(err)
+      })
   }
 
   getCategoriesBySupercategoryTitle() {

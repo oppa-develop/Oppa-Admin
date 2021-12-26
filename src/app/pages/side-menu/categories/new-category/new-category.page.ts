@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { LoadingController, ModalController } from '@ionic/angular';
 import { ApiService } from 'src/app/providers/api/api.service';
 
 @Component({
@@ -16,7 +16,8 @@ export class NewCategoryPage implements OnInit {
   constructor(
     private modalController: ModalController,
     private formBuilder: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -39,16 +40,25 @@ export class NewCategoryPage implements OnInit {
     this.modalController.dismiss();
   }
 
-  createCategory() {
+  async createCategory() {
     if (!this.newCategoryForm.valid) throw Error('Invalid Form')
+    const loading = await this.loadingController.create({
+      message: 'Creando categoría...'
+    });
+    await loading.present()
     this.api.createCategory(this.newCategoryForm.value).toPromise()
       .then((res: any) => {
+        loading.dismiss()
         const index = this.superCategories.findIndex(superCategory => {
           return superCategory.super_category_id == this.newCategoryForm.value.super_categories_super_category_id
         })
         delete this.newCategoryForm.value.super_categories_super_category_id
         this.newCategoryForm.value.super_category = this.superCategories[index].title
         this.modalController.dismiss(this.newCategoryForm.value)
+      })
+      .catch(err => {
+        loading.dismiss()
+        console.log(err)
       })
   }
 
