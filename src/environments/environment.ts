@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  HOST: 'https://api.somosoppa.cl',
+  HOST: 'https://api2.somosoppa.cl',
   // HOST: 'http://localhost:3000',
 };
 

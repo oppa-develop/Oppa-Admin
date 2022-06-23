@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/providers/api/api.service';
 import { environment } from 'src/environments/environment';
 import { Chart } from 'angular-highcharts';
 import * as dayjs from 'dayjs';
+import { CsvGeneratorService } from 'src/app/providers/csv-generator/csv-generator.service';
+
 
 @Component({
   selector: 'app-home',
@@ -86,7 +88,8 @@ export class HomePage {
   }
 
   constructor(
-    private api: ApiService
+    private api: ApiService,
+    private csvGen: CsvGeneratorService
   ) { }
 
   ionViewWillEnter() {
@@ -462,5 +465,12 @@ export class HomePage {
         }]
       }]
     } as any);
+  }
+
+  async lastServicesDownload() {
+    let data = this.lastServicesTable.rows.map(row => {
+      return {...row, Fecha: dayjs(row.Fecha).format('DD-MM-YYYY HH:mm')}
+    })
+    this.csvGen.downloadFile(data, this.lastServicesTable.columns.map(column => column.name), 'Últimos servicios solicitados - ' + dayjs().format('DD-MM-YYYY'))
   }
 }

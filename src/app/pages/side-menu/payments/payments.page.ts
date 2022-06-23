@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { ApiService } from 'src/app/providers/api/api.service';
 import { environment } from 'src/environments/environment';
+import * as dayjs from 'dayjs';
+import { CsvGeneratorService } from 'src/app/providers/csv-generator/csv-generator.service';
 
 @Component({
   selector: 'app-payments',
@@ -29,7 +31,8 @@ export class PaymentsPage implements OnInit {
 
   constructor(
     private api: ApiService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private csvGen: CsvGeneratorService
   ) { }
 
   ngOnInit() {
@@ -136,5 +139,10 @@ export class PaymentsPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  async paymentsDownload() {
+    this.table.columns.pop()
+    this.csvGen.downloadFile(this.table.rows, this.table.columns.map(column => column.name), 'pagos - ' + dayjs().format('DD-MM-YYYY'))
   }
 }

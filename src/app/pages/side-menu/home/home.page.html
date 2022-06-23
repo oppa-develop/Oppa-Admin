@@ -197,7 +197,12 @@
       <!-- tabla Últimos servicios solicitados -->
       <ion-card color="secondary" class="card-with-100">
         <ion-card-header>
-          <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
+          <ion-list class="ion-no-padding" lines="none">
+            <ion-item class="ion-no-padding" color="secondary">
+              <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
+              <ion-button (click)="lastServicesDownload()" class="download-btn" slot="end" color="primary"><ion-icon name="download-outline"></ion-icon></ion-button>
+            </ion-item>
+          </ion-list>
         </ion-card-header>
         <ion-card-content>
           <ion-progress-bar *ngIf="loadingServices" type="indeterminate"></ion-progress-bar>
