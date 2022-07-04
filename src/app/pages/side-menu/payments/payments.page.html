@@ -1,0 +1,64 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card color="secondary">
+          <ion-card-header>
+            <ion-list class="ion-no-padding" lines="none">
+              <ion-item class="ion-no-padding" color="secondary">
+                <ion-text color="light">
+                  <strong>{{'Pagos' | uppercase}}</strong>
+                </ion-text>
+                <ion-button (click)="paymentsDownload()" class="download-btn" slot="end" color="primary"><ion-icon name="download-outline"></ion-icon></ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+            <table *ngIf="!loading">
+              <thead>
+                <tr>
+                  <td *ngFor="let column of table.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of table.rows.slice(page * 5, (page * 5) + 5)">
+                  <td>{{ row['Monto'] }}</td>
+                  <td>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'por pagar'" class="amber state">
+                      {{ row['Estado'] }}
+                    </ion-button>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'pagado' || row['Estado'].toLowerCase() === 'reembolsado'" class="state" color="success">
+                      {{ row['Estado'] }}
+                    </ion-button>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'cancelado'" class="state" color="danger">
+                      {{ row['Estado'] }}
+                    </ion-button>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() === 'en proceso'" class="state" color="light">
+                      {{ row['Estado'] }}
+                    </ion-button>
+                  </td>
+                  <td>{{ row['Nº de Orden'] }}</td>
+                  <td>{{ row['Proveedor'] }}</td>
+                  <td>{{ row['Cliente'] }}</td>
+                  <td>{{ row['Servicio'] }}</td>
+                  <td>
+                    <ion-button *ngIf="row['Estado'].toLowerCase() !== 'en proceso'" (click)="changeState(row['id'])" expand="block" fill="clear"><ion-icon name="create-outline"></ion-icon></ion-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ion-title color="light" class="ion-no-padding ion-float-left">Total: {{ table.rows.length }}</ion-title>
+            <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+              <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+            <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+              <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+            <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

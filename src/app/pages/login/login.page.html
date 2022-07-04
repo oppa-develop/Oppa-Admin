@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-grid class="ion-no-padding">
+    <ion-row class="ion-align-items-center">
+      <ion-col size="4" offset="2" class="ion-padding">
+        <form class="ion-padding" [formGroup]="loginForm" (ngSubmit)="login()" ngNativeValidate>
+          <ion-title class="ion-text-center"><strong>{{'Ingrese con su cuenta' | uppercase}}</strong></ion-title>
+          <ion-item class="ion-margin-vertical">
+            <ion-icon slot="start" name="mail-outline"></ion-icon>
+            <ion-label position="floating">Email</ion-label>
+            <ion-input formControlName="email" type="email" required></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-icon *ngIf="loginForm.value.password?.length > 0" slot="start" name="lock-open-outline"></ion-icon>
+            <ion-icon *ngIf="loginForm.value.password?.length == 0" slot="start" name="lock-closed-outline"></ion-icon>
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input formControlName="password" [type]="passwordTypeInput" required #passwordEyeRegister clearOnEdit="false"></ion-input>
+            <ion-icon class="password-icon" slot="end" [name]="(passwordTypeInput === 'text')?'eye-off':'eye'" (click)="togglePasswordMode()"></ion-icon>
+          </ion-item>
+          <ion-button size="large" color="primary" type="submit" class="ion-no-margin ion-margin-vertical" expand="block">Ingresar</ion-button>
+          <a class="ion-float-right" color="secondary" routerLink="/create-account"><strong>Olvidé mi contraseña</strong></a>
+        </form>
+      </ion-col>
+      <ion-col size="4" offset="2">
+        <ion-img src="assets/images/Logo Oppa_Mesa de trabajo 1 copia.jpg"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -5,11 +5,13 @@
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
+    "start": "npm run build && npx cap open electron",
+    "build": "ionic build && npx cap sync",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "electron:mac": "electron-packager ./electron OppaAdmin --overwrite --platform=darwin --arch=x64 --prune=true --out=release-builds",
+    "electron:win": "electron-packager ./electron Oppa-Admin --overwrite --asar=true --platform=win32 --arch=x64 --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName='Oppa Admin Panel'"
   },
   "private": true,
   "dependencies": {
@@ -21,6 +23,12 @@
     "@angular/router": "~11.2.0",
     "@capacitor/core": "2.4.7",
     "@ionic/angular": "^5.5.2",
+    "angular-highcharts": "^11.3.1",
+    "dayjs": "^1.10.7",
+    "electron": "^12.0.1",
+    "highcharts": "^9.1.1",
+    "ngx-electron": "^2.2.0",
+    "object-to-formdata": "^4.1.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -35,8 +43,9 @@
     "@ionic/angular-toolkit": "^3.1.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/node": "^12.11.1",
+    "@types/node": "^14.14.33",
     "codelyzer": "^6.0.0",
+    "electron-packager": "^15.2.0",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~5.2.0",

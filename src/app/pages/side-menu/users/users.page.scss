@@ -1,0 +1,25 @@
+td:nth-child(2),
+td:nth-child(4),
+td:nth-child(5),
+td:nth-child(6),
+td:nth-child(7)  {
+  width: calc(100% / 5);
+}
+
+ion-avatar ion-img {
+  height: 50px;
+  width: 50px;
+  margin-top: 15px;
+}
+
+.man {
+  --background: var(--ion-color-primary);
+}
+
+.woman {
+  --background: #e91e63;
+}
+
+.other {
+  --background: #ffa000;
+}

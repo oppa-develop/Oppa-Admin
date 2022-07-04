@@ -1,0 +1,55 @@
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card color="secondary">
+          <ion-card-header>
+            <ion-list class="ion-no-padding" lines="none">
+              <ion-item class="ion-no-padding" color="secondary">
+                <ion-text color="light">
+                  <strong>{{'Servicios' | uppercase}}</strong>
+                </ion-text>
+                <ion-button (click)="presentModalNewService()" class="add-btn" slot="end" color="primary"><ion-icon name="add"></ion-icon></ion-button>
+              </ion-item>
+            </ion-list>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-progress-bar *ngIf="loading" type="indeterminate"></ion-progress-bar>
+            <table *ngIf="!loading">
+              <thead>
+                <tr>
+                  <td *ngFor="let column of table.columns"><strong><ion-text color="light">{{ column.name }}</ion-text></strong></td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let row of table.rows.slice(page * 5, (page * 5) + 5)">
+                  <td>{{ row['Título'] }}</td>
+                  <td>{{ row['Descripción'] }}</td>
+                  <td>${{ row['Precio'] | number }}</td>
+                  <td>{{ row['Esencial'] }}</td>
+                  <td>{{ row['Categoría'] }}</td>
+                  <td>{{ row['Supercategoría'] }}</td>
+                  <td>{{ row['Comisión (%)'] }}</td>
+                  <td>
+                    <ion-button color="danger" (click)="changeState(row['Id'], 'eliminado por admin')" [disabled]="row['Estado'] === 'eliminado por admin'">
+                      <ion-icon slot="icon-only" size="small" name="trash-outline"></ion-icon>
+                    </ion-button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <ion-title color="light" class="ion-no-padding ion-float-left">Total: {{ table.rows.length }}</ion-title>
+            <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+              <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+            </ion-button>
+            <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+              <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+            </ion-button>
+            <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

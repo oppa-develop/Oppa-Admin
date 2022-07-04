@@ -24,3 +24,131 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+ion-content,
+ion-footer {
+  --ion-background-color: var(--ion-color-terciary);
+  background: var(--ion-color-terciary);
+}
+
+ion-avatar {
+  height: 68px;
+  width: 68px;
+}
+
+ion-title {
+  padding-left: 10px;
+}
+
+td {
+  border-top: 2px solid var(--ion-color-secondary-contrast);
+}
+
+td:not(td:first-child) {
+  padding-left: 20px;
+}
+
+td {
+  height: 50px;
+}
+
+.add-btn {
+  margin-right: -15px;
+}
+
+ion-input {
+  color: white
+}
+
+ion-label {
+  color: white
+}
+
+.modal-form {
+  --width: 400px;
+  --height: 350px;
+  --background: var(--ion-color-secondary);
+
+  ion-content,
+  ion-footer {
+    --ion-background-color: var(--ion-color-secondary);
+    background: var(--ion-color-secondary);
+  }
+}
+
+.modal-form-large {
+  --width: 400px;
+  --height: 550px;
+  --background: var(--ion-color-secondary);
+
+  ion-content,
+  ion-footer {
+    --ion-background-color: var(--ion-color-secondary);
+    background: var(--ion-color-secondary);
+  }
+}
+
+.btn-secondary {
+  --background: transparent;
+  border: 2px solid var(--ion-color-primary);
+  border-radius: 5px;
+}
+
+.modal-form form ion-footer,
+.modal-form-large form ion-footer {
+  position: fixed;
+  bottom: 4px;
+  right: 5px;
+}
+
+ion-select {
+  max-width: 100%;
+  width: 100%;
+  text-align: right;
+  color: white
+}
+
+ion-item ion-label {
+  font-size: 1.8em;
+}
+
+.alert-radio-label {
+  white-space: pre-wrap !important;
+}
+
+.alert-wrapper {
+  --background: var(--ion-color-secondary)
+}
+
+.alert-title.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-md {
+  color: var(--ion-text-color, white);
+}
+
+[aria-checked=true].sc-ion-alert-md .alert-radio-label.sc-ion-alert-md {
+  color: var(--ion-color-primary);
+}
+
+tr,
+td,
+ion-text {
+  transition: 500ms;
+}
+
+tr:hover td,
+ion-list:hover ion-text {
+  color: white;
+}
+
+table {
+  width: 100%;
+}
+
+ion-button.state {
+  zoom: 0.7;
+  width: 125px;
+}
+
+.download-btn {
+  margin-right: -15px;
+}

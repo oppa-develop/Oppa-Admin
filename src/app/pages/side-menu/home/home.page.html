@@ -1,0 +1,246 @@
+<ion-content [fullscreen]="true">
+  <ion-grid>
+    <ion-row>
+
+      <!-- gráfica de venta mensual -->
+      <ion-col size="3">
+        <ion-card color="secondary" class="ion-padding">
+          <ion-card-header class="ion-no-padding">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="12">
+                  <h1>
+                    <ion-text color="success"><strong>{{ salesAmounth | currency:'CLP':'symbol-narrow' }}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Venta mensual</strong></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <!-- gráfica de servicios agendados -->
+      <ion-col size="3">
+        <ion-card color="secondary" class="ion-padding">
+          <ion-card-header class="ion-no-padding">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="5.5">
+                  <div [chart]="totalServices.chart"></div>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{totalServices.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
+                </ion-col>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text color="primary"><strong>{{servicesNotCanceledQuantity}}</strong></ion-text>
+                    <ion-text color="light"><strong>/</strong></ion-text>
+                    <ion-text color="primary"><strong>{{totalServicesQuantity}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Servicios agendados</strong></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <!-- gráfica de clientes -->
+      <ion-col size="3">
+        <ion-card color="secondary" class="ion-padding">
+          <ion-card-header class="ion-no-padding">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="5.5">
+                  <div [chart]="newUsers.chart"></div>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{newUsers.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
+                </ion-col>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text class="fuchsia-value"><strong>{{newUsers.value}}</strong></ion-text>
+                    <ion-text color="light"><strong>/</strong></ion-text>
+                    <ion-text class="fuchsia-value"><strong>{{newUsers.totalValue}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Clientes nuevos</strong></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+      <!-- gráfica de proveedores -->
+      <ion-col size="3">
+        <ion-card color="secondary" class="ion-padding">
+          <ion-card-header class="ion-no-padding">
+            <ion-grid>
+              <ion-row>
+                <ion-col size="5.5">
+                  <div [chart]="newProviders.chart"></div>
+                  <h1 class="chart-percentage">
+                    <ion-text><strong>{{newProviders.percentage | number: '1.0-0'}}%</strong></ion-text>
+                  </h1>
+                </ion-col>
+                <ion-col size="5.5">
+                  <h1 class="ion-float-right">
+                    <ion-text color="warning"><strong>{{newProviders.value}}</strong></ion-text>
+                    <ion-text color="light"><strong>/</strong></ion-text>
+                    <ion-text color="warning"><strong>{{newProviders.totalValue}}</strong></ion-text>
+                  </h1>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <ion-col size="12">
+                  <ion-text class="ion-float-right"><strong>Proveedores nuevos</strong></ion-text>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+
+    </ion-row>
+
+    <ion-row>
+
+      <!-- gráfica de comunas más activas -->
+      <ion-col size="8">
+        <ion-row>
+          <ion-card color="secondary" class="card-with-100">
+            <ion-card-header>
+              <ion-text color="light"><strong>{{'Comunas más activas' | uppercase}}</strong></ion-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-progress-bar *ngIf="loadingMostActiveDistricts" type="indeterminate"></ion-progress-bar>
+              <div [chart]="mostActiveDistricts.chart"></div>
+            </ion-card-content>
+          </ion-card>
+        </ion-row>
+      </ion-col>
+      <ion-col size="4">
+        <!-- <ion-row>
+          <ion-card color="secondary">
+            <ion-card-header>
+              <ion-text color="light"><strong>{{'Mejores Evaluados' | uppercase}}</strong></ion-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list class="ion-no-padding" *ngFor="let provider of [1,2,3,4,5]">
+                <ion-item button class="ion-no-padding" color="secondary">
+                  <ion-avatar slot="start">
+                    <ion-img src="http://www.loremflickr.com/400/400/selfie"></ion-img>
+                  </ion-avatar>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="12">
+                        <ion-text>Juenito Pérez</ion-text>
+                      </ion-col>
+                      <ion-col size="12">
+                        <ion-text>j.perez@example.com</ion-text>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-row> -->
+        <ion-row>
+
+          <!-- listado de servicios más solicitados -->
+          <ion-card color="secondary">
+            <ion-card-header>
+              <ion-text color="light"><strong>{{'Servicios más solicitados' | uppercase}}</strong></ion-text>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list class="ion-no-padding" *ngFor="let service of mostRequestedServices">
+                <ion-item button class="ion-no-padding" color="secondary">
+                  <ion-thumbnail slot="start">
+                    <ion-img [src]="apiUrl + service.img_url"></ion-img>
+                  </ion-thumbnail>
+                  <ion-grid>
+                    <ion-row>
+                      <ion-col size="12">
+                        <ion-text>{{ service.title }}</ion-text>
+                      </ion-col>
+                      <ion-col size="12">
+                        <ion-text>{{ service.category }}</ion-text>
+                      </ion-col>
+                    </ion-row>
+                  </ion-grid>
+                  <ion-badge class="fuchsia-background" slot="end">{{ service.quantity }}</ion-badge>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    
+    <ion-row>
+
+      <!-- tabla Últimos servicios solicitados -->
+      <ion-card color="secondary" class="card-with-100">
+        <ion-card-header>
+          <ion-list class="ion-no-padding" lines="none">
+            <ion-item class="ion-no-padding" color="secondary">
+              <ion-text color="light"><strong>{{'Últimos servicios solicitados' | uppercase}}</strong></ion-text>
+              <ion-button (click)="lastServicesDownload()" class="download-btn" slot="end" color="primary"><ion-icon name="download-outline"></ion-icon></ion-button>
+            </ion-item>
+          </ion-list>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-progress-bar *ngIf="loadingServices" type="indeterminate"></ion-progress-bar>
+          <table class="categories-tb" *ngIf="!loadingServices">
+            <thead>
+              <tr>
+                <td *ngFor="let column of lastServicesTable.columns">
+                  <strong><ion-text color="light">{{ column.name }}</ion-text></strong>
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let row of lastServicesTable.rows.slice(page * 5, (page * 5) + 5)">
+                <!-- el slice limita la cantidad a mostrar -->
+                <td>{{ row['Servicio'] }}</td>
+                <td>{{ row['Categoría'] }}</td>
+                <td>{{ row['Supercategoría'] }}</td>
+                <td>{{ row['Proveedor'] }}</td>
+                <td>{{ row['Cliente'] }}</td>
+                <td>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'terminado'" color="success">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'cancelado'" color="danger">{{ row['Estado'] }}</ion-button>
+                  <ion-button class="state" *ngIf="row['Estado'].toLowerCase() === 'agendado'" color="primary">{{ row['Estado'] }}</ion-button>
+                </td>
+                <td>{{ row['Fecha'] | date:'shortDate' }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </ion-card-content>
+        <ion-button class="ion-float-right ion-padding-end" (click)="nextPage()" [disabled]="page === totalPages - 1">
+          <ion-icon slot="icon-only" size="small" name="arrow-forward-outline"></ion-icon>
+        </ion-button>
+        <ion-button class="ion-float-right" (click)="previousPage()" [disabled]="page === 0">
+          <ion-icon slot="icon-only" size="small" name="arrow-back-outline"></ion-icon>
+        </ion-button>
+        <ion-label class="ion-float-right ion-padding" color="light">Página {{page + 1}} de {{totalPages}}</ion-label>
+      </ion-card>
+
+    </ion-row>
+  </ion-grid>
+</ion-content>

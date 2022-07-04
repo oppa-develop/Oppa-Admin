@@ -1,0 +1,62 @@
+#container {
+  text-align: center;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#container strong {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+#container p {
+  font-size: 16px;
+  line-height: 22px;
+  color: #8c8c8c;
+  margin: 0;
+}
+
+#container a {
+  text-decoration: none;
+}
+
+ion-avatar, ion-thumbnail {
+  width: 16%;
+  height: 16%;
+}
+
+ion-thumbnail {
+  margin-inline-end: 15px;
+}
+
+.no-margin-bottom {
+  margin-bottom: 0;
+}
+
+.no-margin-right {
+  margin-right: 0;
+}
+
+.card-with-100 {
+  width: 100%;
+}
+
+.chart-percentage {
+  font-size: 1.5vw;
+  margin: -45% 15% 0 15%;
+}
+
+.fuchsia-value {
+  color: #e91e63 !important;
+}
+
+.fuchsia-background {
+  background-color: #e91e63 !important;
+}
+
+.pagination {
+  vertical-align: middle;
+}
