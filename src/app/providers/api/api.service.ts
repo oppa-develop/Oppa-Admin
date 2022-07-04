@@ -155,4 +155,8 @@ export class ApiService {
   updatePayment(data: any): Observable<any> {
     return this.http.patch(`${this.apiUrl}/payments/edit-payment`, data)
   }
+
+  changeServiceState(data: any): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/services/change-state`, data)
+  }
 }
